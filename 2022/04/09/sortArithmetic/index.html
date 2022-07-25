@@ -1,0 +1,309 @@
+<html>
+<!-- Head tag -->
+<head>
+  <meta charset="UTF-8">
+
+  
+  <title>
+    排序算法 |
+    Majesty&#39;s blog
+  </title>
+  
+
+
+  <meta name="description" content="">
+  <meta name="author" content="Alex">
+  <meta property="og:title" content="排序算法" />
+  <meta property="og:description" content="" />
+  <meta property='og:site_name' content='Majesty&#39;s blog' />
+  <meta property="og:image" content="http://example.com/img/default.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:title" content="排序算法" />
+
+  <meta name="twitter:image" content="http://example.com/img/default.jpg" />
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <!-- Menu -->
+    <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
+  <div class="container">
+    <a class="navbar-brand logo" href="http://example.com">
+      Majesty&#39;s blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item item">
+          
+        <li class="nav-item item">
+          <a class="nav-link" href="/">
+            Home</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" href="/archives">
+            🗂️Archives</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" target="_blank" rel="noopener" href="https://hexo.io/">
+            Hexo</a>
+        </li>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <main class="page main-page">
+        <div class="container blogPost">
+    <div class="row">
+        <div class="col-sm-9 px-md-5">
+            <h2 class="blog-post-title">
+                排序算法
+            </h2>
+            <p class="meta">
+                <i class="far fa-clock"></i>
+                2022-04-09 
+            </p>
+            <!-- Content -->
+            <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>1.比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破 O(nlogn)，因此也称为非线性时间比较类排序。</p>
+<p>2.非比较类排序：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下界，以线性时间运行，因此也称为线性时间非比较类排序。</p>
+<p><img src="/images/sort-catefory.jpg" alt="sort-catefory"></p>
+<hr>
+<p>GRANT ALL  PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘123456’ WITH GRANT OPTION;<br>grant all privileges on <em>.</em> to ‘root’@’192.168.0.103’ identified by ‘123456’ with grant option;<br>grant all privileges on <em>.</em> to ‘root’@’%’ identified by ‘123456’;<br>update mysql.user set authentication_string=password(‘123456’) where user=’root’ and Host =’192.168.0.103’;</p>
+<h4 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h4><p><img src="/images/sort-complexity.jpg" alt="sort-complexity"></p>
+<p>相关概念</p>
+<p>稳定：如果 a 原本在 b 前面，而 a=b，排序之后 a 仍然在 b 的前面。</p>
+<p>不稳定：如果 a 原本在 b 的前面，而 a=b，排序之后 a 可能会出现在 b 的后面。</p>
+<p>时间复杂度：对排序数据的总的操作次数。反映当 n 变化时，操作次数呈现什么规律。</p>
+<p>空间复杂度：是指算法在计算机</p>
+<hr>
+<h4 id="各种排序算法"><a href="#各种排序算法" class="headerlink" title="各种排序算法"></a>各种排序算法</h4><p>1.冒泡排序</p>
+<p>冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。</p>
+<pre><code>1.1 算法描述
+
+比较相邻的元素。如果第一个比第二个大，就交换它们两个；
+对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对，这样在最后的元素应该会是最大的数；
+针对所有的元素重复以上的步骤，除了最后一个；
+重复步骤 1~3，直到排序完成。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function bubbleSort(arr) &#123;</span><br><span class="line">  var len &#x3D; arr.length;</span><br><span class="line">  for(var i &#x3D; 0; i &lt; len - 1; i++) &#123;</span><br><span class="line">      for(varj &#x3D; 0; j &lt; len - 1 - i; j++) &#123;</span><br><span class="line">          if(arr[j] &gt; arr[j+1]) &#123;       &#x2F;&#x2F; 相邻元素两两对比</span><br><span class="line">              var temp &#x3D; arr[j+1];       &#x2F;&#x2F; 元素交换</span><br><span class="line">              arr[j+1] &#x3D; arr[j];</span><br><span class="line">              arr[j] &#x3D; temp;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  returnarr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<p>2.选择排序</p>
+<p>选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
+<pre><code>2.1算法描述
+
+n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结果。具体算法描述如下：
+初始状态：无序区为R[1..n]，有序区为空；
+第i趟排序(i=1,2,3…n-1)开始时，当前有序区和无序区分别为R[1..i-1]和R(i..n）。该趟排序从当前无序区
+中-选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R[i+1..n)分别变为记录个数
+增加1个的新有序区和记录个数减少1个的新无序区；
+n-1趟结束，数组有序化了。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function selectionSort(arr) &#123;</span><br><span class="line">  var len &#x3D; arr.length;</span><br><span class="line">  var minIndex, temp;</span><br><span class="line">  for(var i &#x3D; 0; i &lt; len - 1; i++) &#123;</span><br><span class="line">      minIndex &#x3D; i;</span><br><span class="line">      for(var j &#x3D; i + 1; j &lt; len; j++) &#123;</span><br><span class="line">          if(arr[j] &lt; arr[minIndex]) &#123;    &#x2F;&#x2F; 寻找最小的数</span><br><span class="line">              minIndex &#x3D; j;                &#x2F;&#x2F; 将最小数的索引保存</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      temp &#x3D; arr[i];</span><br><span class="line">      arr[i] &#x3D; arr[minIndex];</span><br><span class="line">      arr[minIndex] &#x3D; temp;</span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>3.插入排序</p>
+<p>插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。</p>
+<pre><code>3.1算法描述
+
+一般来说，插入排序都采用in-place在数组上实现。具体算法描述如下：
+从第一个元素开始，该元素可以认为已经被排序；
+取出下一个元素，在已经排序的元素序列中从后向前扫描；
+如果该元素（已排序）大于新元素，将该元素移到下一位置；
+重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；
+将新元素插入到该位置后；
+重复步骤2~5。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  function insertionSort(arr) &#123;</span><br><span class="line">    var len &#x3D; arr.length;</span><br><span class="line">    var preIndex, current;</span><br><span class="line">    for (var i &#x3D; 1; i &lt; len; i++) &#123;</span><br><span class="line">      preIndex &#x3D; i - 1;</span><br><span class="line">      current &#x3D; arr[i];</span><br><span class="line">      while(preIndex &gt;&#x3D; 0 &amp;&amp; arr[preIndex] &gt; current) &#123;</span><br><span class="line">        arr[preIndex + 1] &#x3D; arr[preIndex];</span><br><span class="line">        preIndex--;</span><br><span class="line">      &#125;</span><br><span class="line">      arr[preIndex + 1] &#x3D; current;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>4.希尔排序</p>
+<p>1959 年 Shell 发明，第一个突破 O(n2)的排序算法，是简单插入排序的改进版。它与插入排序的不同之处在于，它会优先比较距离较远的元素。希尔排序又叫缩小增量排序。</p>
+<pre><code>4.1算法描述
+
+先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法描述：
+选择一个增量序列t1，t2，…，tk，其中ti&gt;tj，tk=1；
+按增量序列个数k，对序列进行k 趟排序；
+每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。
+仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 修改于 2019-03-06</span><br><span class="line">  function shellSort(arr) &#123;</span><br><span class="line">    var len &#x3D; arr.length;</span><br><span class="line">    for(var gap &#x3D; Math.floor(len &#x2F; 2); gap &gt; 0; gap &#x3D; Math.floor(gap &#x2F; 2)) &#123;</span><br><span class="line">      &#x2F;&#x2F; 注意：这里和动图演示的不一样，动图是分组执行，实际操作是多个分组交替执行</span><br><span class="line">      for(var i &#x3D; gap; i &lt; len; i++) &#123;</span><br><span class="line">        var j &#x3D; i;</span><br><span class="line">        var current &#x3D; arr[i];</span><br><span class="line">        while (j - gap &gt;&#x3D; 0 &amp;&amp; current &lt; arr[j - gap]) &#123;</span><br><span class="line">          arr[j] &#x3D; arr[j - gap];</span><br><span class="line">          j &#x3D; j - gap;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[j] &#x3D; current;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>5.归并排序</p>
+<p>归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为 2-路归并。</p>
+<pre><code>5.1算法描述
+
+把长度为n的输入序列分成两个长度为n/2的子序列；
+对这两个子序列分别采用归并排序；
+将两个排序好的子序列合并成一个最终的排序序列。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function mergeSort(arr) &#123;</span><br><span class="line">  var len &#x3D; arr.length;</span><br><span class="line">  if(len &lt; 2) &#123;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">  var middle &#x3D; Math.floor(len &#x2F; 2),</span><br><span class="line">    left &#x3D; arr.slice(0, middle),</span><br><span class="line">    right &#x3D; arr.slice(middle);</span><br><span class="line">  return merge(mergeSort(left), mergeSort(right));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function merge(left, right) &#123;</span><br><span class="line">  var result &#x3D; [];</span><br><span class="line"></span><br><span class="line">  while(left.length &gt; 0 &amp;&amp; right.length &gt; 0) &#123;</span><br><span class="line">    if (left[0] &lt;&#x3D; right[0]) &#123;</span><br><span class="line">      result.push(left.shift());</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      result.push(right.shift());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  while(left.length)</span><br><span class="line">    result.push(left.shift());</span><br><span class="line"></span><br><span class="line">  while(right.length)</span><br><span class="line">    result.push(right.shift());</span><br><span class="line"></span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>6.快速排序</p>
+<p>快速排序的基本思想：通过一趟排序将待排记录分隔成独立的两部分，其中一部分记录的关键字均比另一部分的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序。</p>
+<pre><code>6.1算法描述
+
+快速排序使用分治法来把一个串（list）分为两个子串（sub-lists）。具体算法描述如下：
+从数列中挑出一个元素，称为 “基准”（pivot）；
+重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可
+以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；
+递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">function quickSort(arr, left, right) &#123;</span><br><span class="line">  var len &#x3D; arr.length,</span><br><span class="line">    partitionIndex,</span><br><span class="line">    left &#x3D; typeof left !&#x3D; &#39;number&#39;? 0 : left,</span><br><span class="line">    right &#x3D; typeof right !&#x3D; &#39;number&#39;? len - 1 : right;</span><br><span class="line"></span><br><span class="line">  if(left &lt; right) &#123;</span><br><span class="line">    partitionIndex &#x3D; partition(arr, left, right);</span><br><span class="line">    quickSort(arr, left, partitionIndex - 1);</span><br><span class="line">    quickSort(arr, partitionIndex + 1, right);</span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function partition(arr, left ,right) &#123;    &#x2F;&#x2F; 分区操作</span><br><span class="line">  var pivot &#x3D; left,                     &#x2F;&#x2F; 设定基准值（pivot）</span><br><span class="line">    index &#x3D; pivot + 1;</span><br><span class="line">  for(var i &#x3D; index; i &lt;&#x3D; right; i++) &#123;</span><br><span class="line">    if(arr[i] &lt; arr[pivot]) &#123;</span><br><span class="line">      swap(arr, i, index);</span><br><span class="line">      index++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr, pivot, index - 1);</span><br><span class="line">  return index-1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function swap(arr, i, j) &#123;</span><br><span class="line">  var temp &#x3D; arr[i];</span><br><span class="line">  arr[i] &#x3D; arr[j];</span><br><span class="line">  arr[j] &#x3D; temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+或者
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function quickSort(arr, begin, end) &#123;</span><br><span class="line">  if (begin &gt;&#x3D; end) &#123;</span><br><span class="line">      return</span><br><span class="line">  &#125;</span><br><span class="line">  let temp &#x3D; arr[begin];</span><br><span class="line">  let left &#x3D; begin;</span><br><span class="line">  let right &#x3D; end;</span><br><span class="line">  while(right &gt; left) &#123;</span><br><span class="line">      while(right &gt; left &amp;&amp; arr[right] &gt;&#x3D; temp) &#123;</span><br><span class="line">          right--;</span><br><span class="line">      &#125;</span><br><span class="line">      while(right &gt; left &amp;&amp; arr[left] &lt;&#x3D; temp) &#123;</span><br><span class="line">          left++;</span><br><span class="line">      &#125;</span><br><span class="line">      [arr[left], arr[right]] &#x3D; [arr[right], arr[left]];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  [arr[begin], arr[right]] &#x3D; [arr[right], arr[begin]];</span><br><span class="line">  quickSort(arr, begin, right - 1);</span><br><span class="line">  quickSort(arr, right + 1, end);</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br><span class="line">const arr &#x3D; [3, 6, 1, 2, 5, 4];</span><br><span class="line">const result &#x3D; quickSort(arr, 0, arr.length - 1);</span><br><span class="line">console.log(result);</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>7.堆排序</p>
+<p>堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+<pre><code>7.1算法描述
+
+将初始待排序关键字序列(R1,R2….Rn)构建成大顶堆，此堆为初始的无序区；
+将堆顶元素R[1]与最后一个元素R[n]交换，此时得到新的无序区(R1,R2,……Rn-1)和新的有序区(Rn),且满
+足R[1,2…n-1]&lt;=R[n]；
+由于交换后新的堆顶R[1]可能违反堆的性质，因此需要对当前无序区(R1,R2,……Rn-1)调整为新堆，然后再次
+将R[1]与无序区最后一个元素交换，得到新的无序区(R1,R2….Rn-2)和新的有序区(Rn-1,Rn)。不断重复此
+过程直到有序区的元素个数为n-1，则整个排序过程完成。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">var len;   &#x2F;&#x2F; 因为声明的多个函数都需要数据长度，所以把len设置成为全局变量</span><br><span class="line"></span><br><span class="line">function buildMaxHeap(arr) &#123;  &#x2F;&#x2F; 建立大顶堆</span><br><span class="line">  len &#x3D; arr.length;</span><br><span class="line">  for(var i &#x3D; Math.floor(len&#x2F;2); i &gt;&#x3D; 0; i--) &#123;</span><br><span class="line">    heapify(arr, i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function heapify(arr, i) &#123;    &#x2F;&#x2F; 堆调整</span><br><span class="line">  var left &#x3D; 2 * i + 1,</span><br><span class="line">    right &#x3D; 2 * i + 2,</span><br><span class="line">    largest &#x3D; i;</span><br><span class="line"></span><br><span class="line">  if(left &lt; len &amp;&amp; arr[left] &gt; arr[largest]) &#123;</span><br><span class="line">    largest &#x3D; left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if(right &lt; len &amp;&amp; arr[right] &gt; arr[largest]) &#123;</span><br><span class="line">    largest &#x3D; right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if(largest !&#x3D; i) &#123;</span><br><span class="line">    swap(arr, i, largest);</span><br><span class="line">    heapify(arr, largest);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function swap(arr, i, j) &#123;</span><br><span class="line">  var temp &#x3D; arr[i];</span><br><span class="line">  arr[i] &#x3D; arr[j];</span><br><span class="line">  arr[j] &#x3D; temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function heapSort(arr) &#123;</span><br><span class="line">  buildMaxHeap(arr);</span><br><span class="line"></span><br><span class="line">  for(var i &#x3D; arr.length - 1; i &gt; 0; i--) &#123;</span><br><span class="line">    swap(arr, 0, i);</span><br><span class="line">    len--;</span><br><span class="line">    heapify(arr, 0);</span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>8.计数排序</p>
+<p>计数排序不是基于比较的排序算法，其核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。 作为一种线性时间复杂度的排序，计数排序要求输入的数据必须是有确定范围的整数。</p>
+<pre><code>8.1算法描述
+
+找出待排序的数组中最大和最小的元素；
+统计数组中每个值为i的元素出现的次数，存入数组C的第i项；
+对所有的计数累加（从C中的第一个元素开始，每一项和前一项相加）；
+反向填充目标数组：将每个元素i放在新数组的第C(i)项，每放一个元素就将C(i)减去1。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function countingSort(arr, maxValue) &#123;</span><br><span class="line">  var bucket &#x3D; newArray(maxValue + 1),</span><br><span class="line">    sortedIndex &#x3D; 0;</span><br><span class="line">    arrLen &#x3D; arr.length,</span><br><span class="line">    bucketLen &#x3D; maxValue + 1;</span><br><span class="line"></span><br><span class="line">  for(var i &#x3D; 0; i &lt; arrLen; i++) &#123;</span><br><span class="line">    if(!bucket[arr[i]]) &#123;</span><br><span class="line">      bucket[arr[i]] &#x3D; 0;</span><br><span class="line">    &#125;</span><br><span class="line">    bucket[arr[i]]++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for(var j &#x3D; 0; j &lt; bucketLen; j++) &#123;</span><br><span class="line">    while(bucket[j] &gt; 0) &#123;</span><br><span class="line">      arr[sortedIndex++] &#x3D; j;</span><br><span class="line">      bucket[j]--;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>9.桶排序</p>
+<pre><code>9.1算法描述
+
+设置一个定量的数组当作空桶；
+遍历输入数据，并且把数据一个一个放到对应的桶里去；
+对每个不是空的桶进行排序；
+从不是空的桶里把排好序的数据拼接起来。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">function bucketSort(arr, bucketSize) &#123;</span><br><span class="line">  if(arr.length &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var i;</span><br><span class="line">  var minValue &#x3D; arr[0];</span><br><span class="line">  var maxValue &#x3D; arr[0];</span><br><span class="line">  for (i &#x3D; 1; i &lt; arr.length; i++) &#123;</span><br><span class="line">    if (arr[i] &lt; minValue) &#123;</span><br><span class="line">      minValue &#x3D; arr[i];               &#x2F;&#x2F; 输入数据的最小值</span><br><span class="line">    &#125; else if (arr[i] &gt; maxValue) &#123;</span><br><span class="line">      maxValue &#x3D; arr[i];               &#x2F;&#x2F; 输入数据的最大值</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 桶的初始化</span><br><span class="line">  var DEFAULT_BUCKET_SIZE &#x3D; 5;           &#x2F;&#x2F; 设置桶的默认数量为5</span><br><span class="line">  bucketSize &#x3D; bucketSize || DEFAULT_BUCKET_SIZE;</span><br><span class="line">  var bucketCount &#x3D; Math.floor((maxValue - minValue) &#x2F; bucketSize) + 1;</span><br><span class="line">  var buckets &#x3D; newArray(bucketCount);</span><br><span class="line">  for(i &#x3D; 0; i &lt; buckets.length; i++) &#123;</span><br><span class="line">    buckets[i] &#x3D; [];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 利用映射函数将数据分配到各个桶中</span><br><span class="line">  for(i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    buckets[Math.floor((arr[i] - minValue) &#x2F; bucketSize)].push(arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  arr.length &#x3D; 0;</span><br><span class="line">  for(i &#x3D; 0; i &lt; buckets.length; i++) &#123;</span><br><span class="line">    insertionSort(buckets[i]);                     &#x2F;&#x2F; 对每个桶进行排序，这里使用了插入排序</span><br><span class="line">    for(var j &#x3D; 0; j &lt; buckets[i].length; j++) &#123;</span><br><span class="line">      arr.push(buckets[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+<p>10.基数排序</p>
+<p>基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。有时候有些属性是有优先级顺序的，先按低优先级排序，再按高优先级排序。最后的次序就是高优先级高的在前，高优先级相同的低优先级高的在前。</p>
+<pre><code>10.1 算法描述
+
+取得数组中的最大数，并取得位数；
+arr为原始数组，从最低位开始取每个位组成radix数组；
+对radix进行计数排序（利用计数排序适用于小范围数的特点）；
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var counter &#x3D; [];</span><br><span class="line">function radixSort(arr, maxDigit) &#123;</span><br><span class="line">  var mod &#x3D; 10;</span><br><span class="line">  var dev &#x3D; 1;</span><br><span class="line">  for(var i &#x3D; 0; i &lt; maxDigit; i++, dev *&#x3D; 10, mod *&#x3D; 10) &#123;</span><br><span class="line">    for(var j &#x3D; 0; j &lt; arr.length; j++) &#123;</span><br><span class="line">      var bucket &#x3D; parseInt((arr[j] % mod) &#x2F; dev);</span><br><span class="line">      if(counter[bucket]&#x3D;&#x3D;null) &#123;</span><br><span class="line">        counter[bucket] &#x3D; [];</span><br><span class="line">      &#125;</span><br><span class="line">      counter[bucket].push(arr[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    var pos &#x3D; 0;</span><br><span class="line">    for(var j &#x3D; 0; j &lt; counter.length; j++) &#123;</span><br><span class="line">      var value &#x3D;null;</span><br><span class="line">      if(counter[j]!&#x3D;null) &#123;</span><br><span class="line">        while((value &#x3D; counter[j].shift()) !&#x3D;null) &#123;</span><br><span class="line">          arr[pos++] &#x3D; value;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/onepixel/">更多技术文章</a></p>
+
+            <br />
+            <p class="meta">
+                
+            </p>
+        </div>
+
+        <div class="col-sm-3">
+             
+<span><b> TL;DR</b></span>
+<p>
+	Yet another hexo theme.
+</p>
+<hr />
+
+
+<span><b> TL;DR 2</b></span>
+<p>
+	No, not another one :/
+</p>
+<hr />
+
+ 
+
+<span
+	><a href="https://twitter.com/hexojs" target="_blank" rel="noopener"
+		><b
+			><i class="fab fa-twitter-square"></i>
+			<i class="fas fa-at"></i>
+			hexojs</b
+		></a
+	></span
+>
+<br />
+<a class="twitter-timeline" data-height="800" data-dnt="true" data-chrome="nofooter transparent noheader noborders " target="_blank" rel="noopener" href="https://twitter.com/hexojs?ref_src=twsrc%5Etfw"></a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+        </div>
+    </div>
+</div>
+<!-- Menu fade on scroll -->
+<script>
+    var isScrolling;
+    var prevScrollpos = window.pageYOffset;
+    window.addEventListener(
+        'scroll',
+        function(event) {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    $('#navbar').slideDown();
+                } else {
+                    $('#navbar').slideUp();
+                }
+                prevScrollpos = currentScrollPos;
+            }, 66);
+        },
+        false
+    );
+</script>
+
+
+<a class="float-left gradient btn paginationbtn" href="/2022/04/09/es6/"><i class="fas fa-chevron-left"></i></a>
+
+
+<a class="float-right gradient btn paginationbtn" href="/2022/04/24/javascript/"><i class="fas fa-chevron-right"></i></a>
+
+    </main>
+    <!-- Footer -->
+    <footer class="page-footer">
+  <div class="container">
+    <div class="social-icons">
+      
+      <a href="https://hexo.io/" title="Hexo.io" target="_blank" rel="noopener" class="fas fa-home"></a>
+      
+      <a href="https://twitter.com/hexojs" title="@hexojs" target="_blank" rel="noopener" class="fab fa-twitter"></a>
+      
+      <a href="https://github.com/RandomAdversary/Gradient/issues" title="Report issue" target="_blank" rel="noopener" class="fas fa-bug"></a>
+      
+    </div>
+  </div>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

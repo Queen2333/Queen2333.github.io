@@ -1,0 +1,277 @@
+<html>
+<!-- Head tag -->
+<head>
+  <meta charset="UTF-8">
+
+  
+  <title>
+    函数柯里化 （摘自波神的书） |
+    Majesty&#39;s blog
+  </title>
+  
+
+
+  <meta name="description" content="">
+  <meta name="author" content="Alex">
+  <meta property="og:title" content="函数柯里化 （摘自波神的书）" />
+  <meta property="og:description" content="" />
+  <meta property='og:site_name' content='Majesty&#39;s blog' />
+  <meta property="og:image" content="http://example.com/img/default.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:title" content="函数柯里化 （摘自波神的书）" />
+
+  <meta name="twitter:image" content="http://example.com/img/default.jpg" />
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <!-- Menu -->
+    <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
+  <div class="container">
+    <a class="navbar-brand logo" href="http://example.com">
+      Majesty&#39;s blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item item">
+          
+        <li class="nav-item item">
+          <a class="nav-link" href="/">
+            Home</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" href="/archives">
+            🗂️Archives</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" target="_blank" rel="noopener" href="https://hexo.io/">
+            Hexo</a>
+        </li>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <main class="page main-page">
+        <div class="container blogPost">
+    <div class="row">
+        <div class="col-sm-9 px-md-5">
+            <h2 class="blog-post-title">
+                函数柯里化 （摘自波神的书）
+            </h2>
+            <p class="meta">
+                <i class="far fa-clock"></i>
+                2022-05-03 
+            </p>
+            <!-- Content -->
+            <p>柯里化是函数的一个高级应用，想要理解它并不简单。因此我一直在思考应该如何更加表达才能让大家理解起来更加容易。</p>
+<p>通过上一个章节的学习我们知道，接收函数作为参数的函数，都可以叫做高阶函数。我们常常利用高阶函数来封装一些公共的逻辑。</p>
+<p>这一章我们要学习的柯里化，其实就是高阶函数的一种特殊用法。</p>
+<p>柯里化是指这样一个函数(假设叫做createCurry)，他接收函数A作为参数，运行后能够返回一个新的函数。并且这个新的函数能够处理函数A的剩余参数。</p>
+<p>这样的定义不太好理解，我们可以通过下面的例子配合解释。</p>
+<p>有一个接收三个参数的函数A。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function A(a, b, c) &#123;</span><br><span class="line">    &#x2F;&#x2F; do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如，我们有一个已经封装好了的柯里化通用函数createCurry。他接收bar作为参数，能够将A转化为柯里化函数，返回结果就是这个被转化之后的函数。</p>
+<p><code>var _A = createCurry(A);</code><br>那么_A作为createCurry运行的返回函数，他能够处理A的剩余参数。因此下面的运行结果都是等价的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_A(1, 2, 3);</span><br><span class="line">_A(1, 2)(3);</span><br><span class="line">_A(1)(2, 3);</span><br><span class="line">_A(1)(2)(3);</span><br><span class="line">A(1, 2, 3);</span><br></pre></td></tr></table></figure>
+<p>函数A被createCurry转化之后得到柯里化函数_A，_A能够处理A的所有剩余参数。因此柯里化也被称为部分求值。</p>
+<p>在简单的场景下，可以不用借助柯里化通用式来转化得到柯里化函数，我们凭借眼力自己封装。</p>
+<p>例如有一个简单的加法函数，他能够将自身的三个参数加起来并返回计算结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function add(a, b, c) &#123;</span><br><span class="line">    return a + b + c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么add函数的柯里化函数_add则可以如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function _add(a) &#123;</span><br><span class="line">    return function(b) &#123;</span><br><span class="line">        return function(c) &#123;</span><br><span class="line">            return a + b + c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面的运算方式是等价的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add(1, 2, 3);</span><br><span class="line">_add(1)(2)(3);</span><br></pre></td></tr></table></figure>
+<p>当然，靠眼力封装的柯里化函数自由度偏低，柯里化通用式具备更加强大的能力。因此我们需要知道如何去封装这样一个柯里化的通用式。</p>
+<p>首先通过_add可以看出，柯里化函数的运行过程其实是一个参数的收集过程，我们将每一次传入的参数收集起来，并在最里层里面处理。在实现createCurry时，可以借助这个思路来进行封装。</p>
+<p>封装如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 简单实现，参数只能从右到左传递</span><br><span class="line">function createCurry(func, args) &#123;</span><br><span class="line"></span><br><span class="line">    var arity &#x3D; func.length;</span><br><span class="line">    var args &#x3D; args || [];</span><br><span class="line"></span><br><span class="line">    return function() &#123;</span><br><span class="line">        var _args &#x3D; [].slice.call(arguments);</span><br><span class="line">        [].push.apply(_args, args);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 如果参数个数小于最初的func.length，则递归调用，继续收集参数</span><br><span class="line">        if (_args.length &lt; arity) &#123;</span><br><span class="line">            return createCurry.call(this, func, _args);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 参数收集完毕，则执行func</span><br><span class="line">        return func.apply(this, _args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽管我已经做了足够详细的注解，但是我想理解起来也并不是那么容易，因此建议大家用点耐心多阅读几遍。这个createCurry函数的封装借助闭包与递归，实现了一个参数收集，并在收集完毕之后执行所有参数的一个过程。</p>
+<p>聪明的读者可能已经发现，把函数经过createCurry转化为一个柯里化函数，最后执行的结果，不是正好相当于执行函数自身吗？柯里化是不是把简单的问题复杂化了？</p>
+<p>如果你能够提出这样的问题，那么说明你确实已经对柯里化有了一定的了解。柯里化确实是把简答的问题复杂化了，但是复杂化的同时，我们使用函数拥有了更加多的自由度。而这里对于函数参数的自由处理，正是柯里化的核心所在。</p>
+<p>举一个非常常见的例子。</p>
+<p>如果我们想要验证一串数字是否是正确的手机号，按照普通的思路来做，大家可能是这样封装，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function checkPhone(phoneNumber) &#123;</span><br><span class="line">    return &#x2F;^1[34578]\d&#123;9&#125;$&#x2F;.test(phoneNumber);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而如果想要验证是否是邮箱呢？这么封装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function checkEmail(email) &#123;</span><br><span class="line">    return &#x2F;^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$&#x2F;.test(email);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们还可能会遇到验证身份证号，验证密码等各种验证信息，因此在实践中，为了统一逻辑，我们就会封装一个更为通用的函数，将用于验证的正则与将要被验证的字符串作为参数传入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function check(targetString, reg) &#123;</span><br><span class="line">    return reg.test(targetString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这样封装之后，在使用时又会稍微麻烦一点，因为会总是输入一串正则，这样就导致了使用时的效率低下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">check(&#x2F;^1[34578]\d&#123;9&#125;$&#x2F;, &#39;14900000088&#39;);</span><br><span class="line">check(&#x2F;^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$&#x2F;, &#39;test@163.com&#39;);</span><br></pre></td></tr></table></figure>
+<p>这个时候，我们就可以借助柯里化，在check的基础上再做一层封装，以简化使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var _check &#x3D; createCurry(check);</span><br><span class="line"></span><br><span class="line">var checkPhone &#x3D; _check(&#x2F;^1[34578]\d&#123;9&#125;$&#x2F;);</span><br><span class="line">var checkEmail &#x3D; _check(&#x2F;^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$&#x2F;);</span><br></pre></td></tr></table></figure>
+<p>最后在使用的时候就会变得更加直观与简洁了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">checkPhone(&#39;183888888&#39;);</span><br><span class="line">checkEmail(&#39;xxxxx@test.com&#39;);</span><br></pre></td></tr></table></figure>
+<p>经过这个过程我们发现，柯里化能够应对更加复杂的逻辑封装。当情况变得多变，柯里化依然能够应付自如。</p>
+<p>虽然柯里化确实在一定程度上将问题复杂化了，也让代码更加不容易理解，但是柯里化在面对复杂情况下的灵活性却让我们不得不爱。</p>
+<p>当然这个案例本身情况还算简单，所以还不能够特别明显的凸显柯里化的优势，我们的主要目的在于借助这个案例帮助大家了解柯里化在实践中的用途。</p>
+<p>继续来思考一个例子。这个例子与map有关。在高阶函数的章节中，我们分析了封装map方法的思考过程。由于我们没有办法确认一个数组在遍历时会执行什么操作，因此我们只能将调用for循环的这个统一逻辑封装起来，而具体的操作则通过参数传入的形式让使用者自定义。这就是map函数。</p>
+<p>但是，这是针对了所有的情况我们才会这样想。</p>
+<p>实践中我们常常会发现，在我们的某个项目中，针对于某一个数组的操作其实是固定的，也就是说，同样的操作，可能会在项目的不同地方调用很多次。</p>
+<p>于是，这个时候，我们就可以在map函数的基础上，进行二次封装，以简化我们在项目中的使用。假如这个在我们项目中会调用多次的操作是将数组的每一项都转化为百分比 1 –&gt; 100%。</p>
+<p>普通思维下我们可以这样来封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function getNewArray(array) &#123;</span><br><span class="line">    return array.map(function(item) &#123;</span><br><span class="line">        return item * 100 + &#39;%&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getNewArray([1, 2, 3, 0.12]);   &#x2F;&#x2F; [&#39;100%&#39;, &#39;200%&#39;, &#39;300%&#39;, &#39;12%&#39;];</span><br></pre></td></tr></table></figure>
+<p>而如果借助柯里化来二次封装这样的逻辑，则会如下实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function _map(func, array) &#123;</span><br><span class="line">    return array.map(func);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var _getNewArray &#x3D; createCurry(_map);</span><br><span class="line"></span><br><span class="line">var getNewArray &#x3D; _getNewArray(function(item) &#123;</span><br><span class="line">    return item * 100 + &#39;%&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">getNewArray([1, 2, 3, 0.12]);   &#x2F;&#x2F; [&#39;100%&#39;, &#39;200%&#39;, &#39;300%&#39;, &#39;12%&#39;];</span><br><span class="line">getNewArray([0.01, 1]); &#x2F;&#x2F; [&#39;1%&#39;, &#39;100%&#39;]</span><br></pre></td></tr></table></figure>
+<p>如果我们的项目中的固定操作是希望对数组进行一个过滤，找出数组中的所有Number类型的数据。借助柯里化思维我们可以这样做。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function _filter(func, array) &#123;</span><br><span class="line">    return array.filter(func);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var _find &#x3D; createCurry(_filter);</span><br><span class="line"></span><br><span class="line">var findNumber &#x3D; _find(function(item) &#123;</span><br><span class="line">    if (typeof item &#x3D;&#x3D; &#39;number&#39;) &#123;</span><br><span class="line">        return item;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">findNumber([1, 2, 3, &#39;2&#39;, &#39;3&#39;, 4]); &#x2F;&#x2F; [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 当我们继续封装另外的过滤操作时就会变得非常简单</span><br><span class="line">&#x2F;&#x2F; 找出数字为20的子项</span><br><span class="line">var find20 &#x3D; _find(function(item, i) &#123;</span><br><span class="line">    if (typeof item &#x3D;&#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">find20([1, 2, 3, 30, 20, 100]);  &#x2F;&#x2F; 4</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 找出数组中大于100的所有数据</span><br><span class="line">var findGreater100 &#x3D; _find(function(item) &#123;</span><br><span class="line">    if (item &gt; 100) &#123;</span><br><span class="line">        return item;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">findGreater100([1, 2, 101, 300, 2, 122]); &#x2F;&#x2F; [101, 300, 122]</span><br></pre></td></tr></table></figure>
+<p>我采用了与check例子不一样的思维方向来想大家展示我们在使用柯里化时的想法。目的是想告诉大家，柯里化能够帮助我们应对更多更复杂的场景。</p>
+<p>当然不得不承认，这些例子都太简单了，简单到如果使用柯里化的思维来处理他们显得有一点多此一举，而且变得难以理解。因此我想读者朋友们也很难从这些例子中感受到柯里化的魅力。不过没关系，如果我们能够通过这些例子掌握到柯里化的思维，那就是最好的结果了。在未来你的实践中，如果你发现用普通的思维封装一些逻辑慢慢变得困难，不妨想一想在这里学到的柯里化思维，应用起来，柯里化足够强大的自由度一定能给你一个惊喜。</p>
+<p>当然也并不建议在任何情况下以炫技为目的的去使用柯里化，在柯里化的实现中，我们知道柯里化虽然具有了更多的自由度，但同时柯里化通用式里调用了arguments对象，使用了递归与闭包，因此柯里化的自由度是以牺牲了一定的性能为代价换来的。只有在情况变得复杂时，才是柯里化大显身手的时候。</p>
+<p>额外知识补充</p>
+<p>无限参数的柯里化。</p>
+<p>该部分内容可忽略</p>
+<p>在前端面试中，你可能会遇到这样一个涉及到柯里化的题目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 实现一个add方法，使计算结果能够满足如下预期：</span><br><span class="line">add(1)(2)(3) &#x3D; 6;</span><br><span class="line">add(1, 2, 3)(4) &#x3D; 10;</span><br><span class="line">add(1)(2)(3)(4)(5) &#x3D; 15;</span><br></pre></td></tr></table></figure>
+<p>这个题目的目的是想让add执行之后返回一个函数能够继续执行，最终运算的结果是所有出现过的参数之和。而这个题目的难点则在于参数的不固定。我们不知道函数会执行几次。因此我们不能使用上面我们封装的createCurry的通用公式来转换一个柯里化函数。只能自己封装，那么怎么办呢？在此之前，补充2个非常重要的知识点。</p>
+<p>一个是ES6函数的不定参数。假如我们有一个数组，希望把这个数组中所有的子项展开传递给一个函数作为参数。那么我们应该怎么做？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 大家可以思考一下，如果将args数组的子项展开作为add的参数传入</span><br><span class="line">function add(a, b, c, d) &#123;</span><br><span class="line">    return a + b + c + d;</span><br><span class="line">&#125;</span><br><span class="line">var args &#x3D; [1, 3, 100, 1];</span><br></pre></td></tr></table></figure>
+<p>在ES5中，我们可以借助之前学过的apply来达到我们的目的。</p>
+<p><code>add.apply(null, args);  // 105</code><br>而在ES6中，提供了一种新的语法来解决这个问题，那就是不定参。写法如下：</p>
+<p><code>add(...args);  // 105</code><br>这两种写法是等效的。OK，先记在这里。在接下的实现中，我们会用到不定参数的特性。</p>
+<p>第二个要补充的知识点是函数的隐式转换。当我们直接将函数参与其他的计算时，函数会默认调用toString方法，直接将函数体转换为字符串参与计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123; return 20 &#125;</span><br><span class="line">console.log(fn + 10);     &#x2F;&#x2F; 输出结果 function fn() &#123; return 20 &#125;10</span><br></pre></td></tr></table></figure>
+<p>我们可以重写函数的toString方法，让函数参与计算时，输出我们想要的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123; return 20; &#125;</span><br><span class="line">fn.toString &#x3D; function() &#123; return 30 &#125;</span><br><span class="line"></span><br><span class="line">console.log(fn + 10); &#x2F;&#x2F; 40</span><br></pre></td></tr></table></figure>
+<p>除此之外，当我们重写函数的valueOf方法也能够改变函数的隐式转换结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123; return 20; &#125;</span><br><span class="line">fn.valueOf &#x3D; function() &#123; return 60 &#125;</span><br><span class="line"></span><br><span class="line">console.log(fn + 10); &#x2F;&#x2F; 70</span><br></pre></td></tr></table></figure>
+<p>当我们同时重写函数的toString方法与valueOf方法时，最终的结果会取valueOf方法的返回结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123; return 20; &#125;</span><br><span class="line">fn.valueOf &#x3D; function() &#123; return 50 &#125;</span><br><span class="line">fn.toString &#x3D; function() &#123; return 30 &#125;</span><br><span class="line"></span><br><span class="line">console.log(fn + 10); &#x2F;&#x2F; 60</span><br><span class="line">&#96;&#96;&#96;&#96;</span><br><span class="line">补充了这两个知识点之后，我们可以来尝试完成之前的题目了。add方法的实现仍然会是一个参数的收集过程。当add函数执行到最后时，仍然返回的是一个函数，但是我们可以通过定义toString&#x2F;valueOf的方式，让这个函数可以直接参与计算，并且转换的结果是我们想要的。而且它本身也仍然可以继续执行接收新的参数。实现方式如下。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>function add() {<br>    // 第一次执行时，定义一个数组专门用来存储所有的参数<br>    var _args = [].slice.call(arguments);</p>
+<pre><code>// 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+var adder = function () &#123;
+    var _adder = function() &#123;
+        // [].push.apply(_args, [].slice.call(arguments));
+        _args.push(...arguments);
+        return _adder;
+    &#125;;
+
+    // 利用隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+    _adder.toString = function () &#123;
+        return _args.reduce(function (a, b) &#123;
+            return a + b;
+        &#125;);
+    &#125;
+
+    return _adder;
+&#125;
+// return adder.apply(null, _args);
+return adder(..._args);</code></pre>
+<p>}</p>
+<p>var a = add(1)(2)(3)(4);   // f 10<br>var b = add(1, 2, 3, 4);   // f 10<br>var c = add(1, 2)(3, 4);   // f 10<br>var d = add(1, 2, 3)(4);   // f 10</p>
+<p>// 可以利用隐式转换的特性参与计算<br>console.log(a + 10); // 20<br>console.log(b + 20); // 30<br>console.log(c + 30); // 40<br>console.log(d + 40); // 50</p>
+<p>// 也可以继续传入参数，得到的结果再次利用隐式转换参与计算<br>console.log(a(10) + 100);  // 120<br>console.log(b(10) + 100);  // 120<br>console.log(c(10) + 100);  // 120<br>console.log(d(10) + 100);  // 120<br>// 其实上栗中的add方法，就是下面这个函数的柯里化函数，只不过我们并没有使用通用式来转化，而是自己封装<br>function add(…args) {<br>    return args.reduce((a, b) =&gt; a + b);<br>}<br>```</p>
+
+            <br />
+            <p class="meta">
+                
+            </p>
+        </div>
+
+        <div class="col-sm-3">
+             
+<span><b> TL;DR</b></span>
+<p>
+	Yet another hexo theme.
+</p>
+<hr />
+
+
+<span><b> TL;DR 2</b></span>
+<p>
+	No, not another one :/
+</p>
+<hr />
+
+ 
+
+<span
+	><a href="https://twitter.com/hexojs" target="_blank" rel="noopener"
+		><b
+			><i class="fab fa-twitter-square"></i>
+			<i class="fas fa-at"></i>
+			hexojs</b
+		></a
+	></span
+>
+<br />
+<a class="twitter-timeline" data-height="800" data-dnt="true" data-chrome="nofooter transparent noheader noborders " target="_blank" rel="noopener" href="https://twitter.com/hexojs?ref_src=twsrc%5Etfw"></a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+        </div>
+    </div>
+</div>
+<!-- Menu fade on scroll -->
+<script>
+    var isScrolling;
+    var prevScrollpos = window.pageYOffset;
+    window.addEventListener(
+        'scroll',
+        function(event) {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    $('#navbar').slideDown();
+                } else {
+                    $('#navbar').slideUp();
+                }
+                prevScrollpos = currentScrollPos;
+            }, 66);
+        },
+        false
+    );
+</script>
+
+
+<a class="float-left gradient btn paginationbtn" href="/2022/04/28/function/"><i class="fas fa-chevron-left"></i></a>
+
+
+<a class="float-right gradient btn paginationbtn" href="/2022/05/03/eventloop/"><i class="fas fa-chevron-right"></i></a>
+
+    </main>
+    <!-- Footer -->
+    <footer class="page-footer">
+  <div class="container">
+    <div class="social-icons">
+      
+      <a href="https://hexo.io/" title="Hexo.io" target="_blank" rel="noopener" class="fas fa-home"></a>
+      
+      <a href="https://twitter.com/hexojs" title="@hexojs" target="_blank" rel="noopener" class="fab fa-twitter"></a>
+      
+      <a href="https://github.com/RandomAdversary/Gradient/issues" title="Report issue" target="_blank" rel="noopener" class="fas fa-bug"></a>
+      
+    </div>
+  </div>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
