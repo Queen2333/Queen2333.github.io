@@ -1,0 +1,297 @@
+<html>
+<!-- Head tag -->
+<head>
+  <meta charset="UTF-8">
+
+  
+  <title>
+    js闭包相关 （摘自波神的书） |
+    Majesty&#39;s blog
+  </title>
+  
+
+
+  <meta name="description" content="">
+  <meta name="author" content="Alex">
+  <meta property="og:title" content="js闭包相关 （摘自波神的书）" />
+  <meta property="og:description" content="" />
+  <meta property='og:site_name' content='Majesty&#39;s blog' />
+  <meta property="og:image" content="http://example.com/img/default.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:title" content="js闭包相关 （摘自波神的书）" />
+
+  <meta name="twitter:image" content="http://example.com/img/default.jpg" />
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <!-- Menu -->
+    <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
+  <div class="container">
+    <a class="navbar-brand logo" href="http://example.com">
+      Majesty&#39;s blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item item">
+          
+        <li class="nav-item item">
+          <a class="nav-link" href="/">
+            Home</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" href="/archives">
+            🗂️Archives</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" target="_blank" rel="noopener" href="https://hexo.io/">
+            Hexo</a>
+        </li>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <main class="page main-page">
+        <div class="container blogPost">
+    <div class="row">
+        <div class="col-sm-9 px-md-5">
+            <h2 class="blog-post-title">
+                js闭包相关 （摘自波神的书）
+            </h2>
+            <p class="meta">
+                <i class="far fa-clock"></i>
+                2023-07-13 
+            </p>
+            <!-- Content -->
+            <h4 id="作用域与作用域链"><a href="#作用域与作用域链" class="headerlink" title="作用域与作用域链"></a>作用域与作用域链</h4><p><img src="/images/article/scope1.png" alt="scope1"></p>
+<p>作用域与作用域链本应该是一个非常简单的概念。可是在近两年多的留言中，我发现这些概念反而成为了大多数人想不明白的点，而感到困惑的原因在于，别的文章里，常常会提到词法作用域，词法分析等概念，到底是什么东西？好像跟我说的有一点不一样，但又不知道哪里不对？</p>
+<p>为了避免接下来更多的同学造成同样的困扰，我写了一篇名为（v8引擎是如何工作的）文章，为大家分析JS的工作原理。后续会整理进入基础进阶系列文章。大家可以随时阅读。</p>
+<h5 id="词法环境（Lexical-Environments）"><a href="#词法环境（Lexical-Environments）" class="headerlink" title="词法环境（Lexical Environments）"></a>词法环境（Lexical Environments）</h5><p>官方规范对词法环境的说明是：词法环境（Lexical Environments）是一种规范类型，用于根据ECMAScript代码的词法嵌套结构来定义标识符与特定变量和函数的关联。</p>
+<p>官方就是爱把简单的东西复杂化，专业！</p>
+<p>通俗来说，词法环境就是一套约定好的规则。我们写代码，应该按照这个规则来。JS引擎对JS源码进行词法分析，也是按照这个规则来。</p>
+<p>因此，词法环境，在我们写代码的时候就已经确定了。明白了这一点，对于区分词法环境与执行上下文有非常关键的意义。</p>
+<p>词法环境，其实就是作用域，有的人叫词法作用域等等</p>
+<p>得出结论：</p>
+<p>一、在JavaScript中，我们可以将作用域定义为一套规则，这套规则用来管理JS引擎如何在当前作用域以及嵌套的子作用域中根据标识符名称进行变量查找。</p>
+<p>这里的标识符，指的是变量名或者函数名</p>
+<p>二、JavaScript中有全局作用域与函数作用域(因为eval我们平时开发中几乎不会用到它，这里不讨论)。</p>
+<p>现在，大家知道词法环境，作用域和执行上下文的区别了吗？</p>
+<p>更多的关于JS引擎是如何处理JS代码的，大家可以参考（V8引擎是如何工作的）一文</p>
+<p>除此之外，一个词法环境，由环境记录(Environment Records)与一个外部指向outer组成。</p>
+<p>环境记录如果非要细分的话，又可以分为函数环境记录和声明性的环境记录。而环境记录对应的，其实就是变量对象，outer对应的，就是上文中出现过，但是没有引起重视的scopeChain。</p>
+<h5 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h5><p>首先我们要明确的一点是，作用域和作用域链是不同的。</p>
+<p>作用域是一套规则。</p>
+<p>而作用域链则是在代码执行过程中，会动态变化的一条索引路径。</p>
+<p>在理解之前，需要回顾一下上一篇文章我们分析的执行上下文的生命周期，如下图。</p>
+<p><img src="/images/article/scope2.png" alt="scope2"></p>
+<p>我们知道函数在调用激活时，会开始创建对应的执行上下文，在执行上下文生成的过程中，变量对象，作用域链，以及this的值会分别被确定。之前一篇文章我们详细说明了变量对象，而这里，我们将详细说明作用域链。</p>
+<p>作用域链，是由当前环境与上层环境的一系列变量对象组成，它保证了当前执行环境对符合访问权限的变量和函数的有序访问。</p>
+<p>为了帮助大家理解作用域链，我我们先结合一个例子，以及相应的图示来说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 20;</span><br><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">var b &#x3D; a + 10;</span><br><span class="line"></span><br><span class="line">function innerTest() &#123;</span><br><span class="line">    var c &#x3D; 10;</span><br><span class="line">    return b + c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return innerTest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，全局，函数test，函数innerTest的执行上下文先后创建。我们设定他们的变量对象分别为VO(global)，VO(test), VO(innerTest)。而innerTest的作用域链，则同时包含了这三个变量对象，所以innerTest的执行上下文可如下表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    innerTestEC &#x3D; &#123;</span><br><span class="line">    VO: &#123;...&#125;,  &#x2F;&#x2F; 变量对象</span><br><span class="line">    scopeChain: [VO(innerTest), VO(test), VO(global)], &#x2F;&#x2F; 作用域链</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们这里使用一个数组来模拟作用域链，数组的第一项scopeChain[0]为作用域链的最前端，而数组的最后一项，为作用域链的最末端，所有的最末端都为全局变量对象。</p>
+<p>很多人会误解为当前作用域与上层作用域为包含关系，但其实并不是。以最前端为起点，最末端为终点的单方向通道我认为是更加贴切的形容，如图。</p>
+<p><img src="/images/article/scope3.png" alt="scope3"></p>
+<p>注意，因为变量对象在执行上下文进入执行阶段时，就变成了活动对象，这一点在上一篇文章中已经讲过，因此图中使用了AO来表示。Active Object</p>
+<p>作用域链是由一系列变量对象组成，我们可以在这个单向通道中，查询变量对象中的标识符，这样，就能访问到上一层作用域中的变量。</p>
+<p>最后，用一个问题，验证一下大家对作用域和作用域链以及变量对象的理解：</p>
+<p>foo的执行结果是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 20;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">if (!a) &#123;</span><br><span class="line">    a &#x3D; 100;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; 10;</span><br><span class="line"></span><br><span class="line">return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(foo());</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p><img src="/images/article/closure1.png" alt="closure1"></p>
+<p>初学JavaScript时，我在闭包上，走了很多弯路。而这次重新回过头来对基础知识进行梳理，要讲清楚闭包，也是一个非常大的挑战。</p>
+<p>闭包有多重要？如果你是初入前端的朋友，我没有办法直观的告诉你闭包在实际开发中的无处不在，但是我可以告诉你，前端面试，必问闭包。面试官们常常用对闭包的了解程度来判定面试者的基础水平，保守估计，10个前端面试者，至少5个都死在闭包上。</p>
+<p>可是为什么，闭包如此重要，还是有那么多人没有搞清楚呢？是因为大家不愿意学习吗？还真不是，而是我们通过搜索找到的大部分讲解闭包的中文文章，都没有清晰明了的把闭包讲清楚。要么浅尝辄止，要么高深莫测，要么干脆就直接乱说一通。</p>
+<p>因此本文的目的就在于，能够清晰明了的把闭包说清楚，让读者朋友们看了之后，就把闭包给彻底学会了，而不是似懂非懂。</p>
+<h5 id="闭包-1"><a href="#闭包-1" class="headerlink" title="闭包"></a>闭包</h5><p>对于有一点 JavaScript 使用经验但从未真正理解闭包概念的人来说，理解闭包可以看作是某种意义上的重生，突破闭包的瓶颈可以使你功力大增。</p>
+<p>闭包是一种特殊的对象。</p>
+<p>它由两部分组成。执行上下文(代号A)，以及在该执行上下文中创建的函数（代号B）。</p>
+<p>当B执行时，如果访问了A中变量对象中的值，那么闭包就会产生。</p>
+<p>在大多数理解中，包括许多著名的书籍，文章里都以函数B的名字代指这里生成的闭包。而在chrome中，则以执行上下文A的函数名代指闭包。</p>
+<p>因此我们只需要知道，一个闭包对象，由A、B共同组成，在以后的篇幅中，我将以chrome的标准来称呼。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; demo01</span><br><span class="line">function foo() &#123;</span><br><span class="line">var a &#x3D; 20;</span><br><span class="line">var b &#x3D; 30;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return bar;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bar &#x3D; foo();</span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
+<p>上面的例子，首先有执行上下文foo，在foo中定义了函数bar，而通过对外返回bar的方式让bar得以执行。当bar执行时，访问了foo内部的变量a，b。因此这个时候闭包产生。</p>
+<p>在基础进阶（一）[1]中，我总结了JavaScript的垃圾回收机制。JavaScript拥有自动的垃圾回收机制，关于垃圾回收机制，有一个重要的行为，那就是，当一个值，在内存中失去引用时，垃圾回收机制会根据特殊的算法找到它，并将其回收，释放内存。</p>
+<p>而我们知道，函数的执行上下文，在执行完毕之后，生命周期结束，那么该函数的执行上下文就会失去引用。其占用的内存空间很快就会被垃圾回收器释放。可是闭包的存在，会阻止这一过程。</p>
+<p>先来一个简单的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var fn &#x3D; null;</span><br><span class="line">function foo() &#123;</span><br><span class="line">var a &#x3D; 2;</span><br><span class="line">function innnerFoo() &#123;</span><br><span class="line">    console.log(a);</span><br><span class="line">&#125;</span><br><span class="line">fn &#x3D; innnerFoo; &#x2F;&#x2F; 将 innnerFoo的引用，赋值给全局变量中的fn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">fn(); &#x2F;&#x2F; 此处的保留的innerFoo的引用</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line">bar(); &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，foo()执行完毕之后，按照常理，其执行环境生命周期会结束，所占内存被垃圾收集器释放。但是通过fn = innerFoo，函数innerFoo的引用被保留了下来，复制给了全局变量fn。这个行为，导致了foo的变量对象，也被保留了下来。于是，函数fn在函数bar内部执行时，依然可以访问这个被保留下来的变量对象。所以此刻仍然能够访问到变量a的值。</p>
+<p>这样，我们就可以称foo为闭包。</p>
+<p>下图展示了闭包foo的作用域链。</p>
+<p><img src="/images/article/closure2.png" alt="closure2"></p>
+<p>我们可以在chrome浏览器的开发者工具中查看这段代码运行时产生的函数调用栈与作用域链的生成情况。如下图。</p>
+<p>关于如何在chrome中观察闭包，以及更多闭包的例子，请阅读基础系列（六）</p>
+<p><img src="/images/article/closure3.png" alt="closure3"></p>
+<p>在上面的图中，红色箭头所指的正是闭包。其中Call Stack为当前的函数调用栈，Scope为当前正在被执行的函数的作用域链，Local为当前的局部变量。</p>
+<p>所以，通过闭包，我们可以在其他的执行上下文中，访问到函数的内部变量。比如在上面的例子中，我们在函数bar的执行环境中访问到了函数foo的a变量。个人认为，从应用层面，这是闭包最重要的特性。利用这个特性，我们可以实现很多有意思的东西。</p>
+<p>不过读者朋友们需要注意的是，虽然例子中的闭包被保存在了全局变量中，但是闭包的作用域链并不会发生任何改变。在闭包中，能访问到的变量，仍然是作用域链上能够查询到的变量。</p>
+<p>对上面的例子稍作修改，如果我们在函数bar中声明一个变量c，并在闭包fn中试图访问该变量，运行结果会抛出错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var fn &#x3D; null;</span><br><span class="line">function foo() &#123;</span><br><span class="line">var a &#x3D; 2;</span><br><span class="line">function innnerFoo() &#123;</span><br><span class="line">    console.log(c); &#x2F;&#x2F; 在这里，试图访问函数bar中的c变量，会抛出错误</span><br><span class="line">    console.log(a);</span><br><span class="line">&#125;</span><br><span class="line">fn &#x3D; innnerFoo; &#x2F;&#x2F; 将 innnerFoo的引用，赋值给全局变量中的fn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">var c &#x3D; 100;</span><br><span class="line">fn(); &#x2F;&#x2F; 此处的保留的innerFoo的引用</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
+<p>关于这一点，很多同学把函数调用栈与作用域链没有分清楚，所以有的童鞋看了我关于介绍执行上下文的文章时就义正言辞的说我的例子有问题，而这些评论有很大的误导作用，为了帮助大家自己拥有能够辨别的能力，所以我写了基础（六），教大家如何在chrome中观察闭包，作用域链，this等。当然我也不敢100%保证我文中的例子就一定正确，所以教大家如何去辨认我认为是一件最重要的事情。</p>
+<h5 id="闭包的应用场景"><a href="#闭包的应用场景" class="headerlink" title="闭包的应用场景"></a>闭包的应用场景</h5><p>当然，只有把闭包运用到实践中，才能对闭包有更深刻的认识。</p>
+<p>这里我们大概了解一下闭包的两个非常重要的应用场景，他们分别是模块化与柯里化。</p>
+<h5 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h5><p>在函数式编程中，利用闭包能够实现很多炫酷的功能，柯里化便是其中很重要的一种。</p>
+<p>具体的内容在后面的章节中详细分析。</p>
+<h5 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h5><p>模块化是闭包最强大的一个应用场景。如果你是初学者，对于模块的了解可以暂时不用放在心上，因为理解模块需要更多的基础知识。但是如果你已经有了很多JavaScript的使用经验，在彻底了解了闭包之后，不妨借助本文介绍的作用域链与闭包的思路，重新理一理关于模块的知识。这对于我们理解各种各样的设计模式具有莫大的帮助。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">var a &#x3D; 10;</span><br><span class="line">var b &#x3D; 20;</span><br><span class="line"></span><br><span class="line">function add(num1, num2) &#123;</span><br><span class="line">    var num1 &#x3D; !!num1 ? num1 : a;</span><br><span class="line">    var num2 &#x3D; !!num2 ? num2 : b;</span><br><span class="line"></span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">window.add &#x3D; add;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">add(10, 20);</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，我使用函数自执行的方式，创建了一个模块。add是模块对外暴露的一个公共方法。而变量a，b被作为私有变量。在面向对象的开发中，我们常常需要考虑是将变量作为私有变量，还是放在构造函数中的this中，因此理解闭包，以及原型链是一个非常重要的事情。模块十分重要，因此我会在以后的文章专门介绍，这里就暂时不多说啦。</p>
+<p><img src="/images/article/closure4.png" alt="closure4"></p>
+<p>为了验证自己有没有搞懂作用域链与闭包，这里留下一个经典的思考题，常常也会在面试中被问到。</p>
+<p>利用闭包，修改下面的代码，让循环输出的结果依次为1， 2， 3， 4， 5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 1; i &lt;&#x3D; 5; i++) &#123;</span><br><span class="line">setTimeout(function timer() &#123;</span><br><span class="line">    console.log(i);</span><br><span class="line">&#125;, i * 1000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>理解闭包并不是一件简单的事，如果感觉有困难，建议反复阅读。</p>
+<hr>
+<h4 id="setTimeout与循环闭包经典面试题详解"><a href="#setTimeout与循环闭包经典面试题详解" class="headerlink" title="setTimeout与循环闭包经典面试题详解"></a>setTimeout与循环闭包经典面试题详解</h4><p>我在详细图解作用域链与闭包[1]一文中的结尾留下了一个关于setTimeout与循环闭包的思考题。</p>
+<p>利用闭包，修改下面的代码，让循环输出的结果依次为1， 2， 3， 4， 5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 1; i &lt;&#x3D; 5; i++) &#123;</span><br><span class="line">setTimeout(function timer() &#123;</span><br><span class="line">    console.log(i);</span><br><span class="line">&#125;, i * 1000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>值得高兴的是，很多朋友在阅读了我的文章之后确实对闭包有了更加深刻的了解，并准确的给出了好几种写法。大家能够认真的阅读我的文章并且一个例子一个例子的上手练习，这种认可对我而言真的非常感动。</p>
+<p>但是也有一些基础稍差的朋友在阅读了之后，对于这题的理解仍然感到困惑，因此应一些读者老爷的要求，借此文章专门对setTimeout进行一个相关的知识分享，希望大家读完之后都能够有新的收获。</p>
+<p>初学setTimeout，我们很容易知道setTimeout有两个参数，第一个参数为一个函数，我们通过该函数定义将要执行的操作。第二个参数为一个时间毫秒数，表示延迟执行的时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line">console.log(&#39;一秒钟之后我将被打印出来&#39;)</span><br><span class="line">&#125;, 1000)</span><br></pre></td></tr></table></figure>
+<p>执行结果如图</p>
+<p><img src="/images/article/settimeout1.png" alt="settimeout1"></p>
+<p>可能不少同学对于setTimeout的理解止步于此，但还是有不少人发现了一些其他的东西，并在评论里提出了疑问。比如上图中的这个数字7，是什么？</p>
+<p>每一个setTimeout在执行时，会返回一个唯一ID，上图中的数字7，就是这个唯一ID。我们在使用时，常常会使用一个变量将这个唯一ID保存起来，用以传入clearTimeout，清除定时器。</p>
+<p>接下来，我们还需要考虑另外一个重要的问题，那就是setTimeout中定义的操作，在什么时候执行？为了引起大家的重视，我们来看看下面的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var timer &#x3D; setTimeout(function() &#123;</span><br><span class="line">console.log(&#39;setTimeout actions.&#39;);</span><br><span class="line">&#125;, 0);</span><br><span class="line"></span><br><span class="line">console.log(&#39;other actions.&#39;);</span><br></pre></td></tr></table></figure>
+<p>思考一下，当我将setTimeout的延迟时间设置为0时，上面的执行顺序会是什么？</p>
+<p>在浏览器中的console中运行试试看，很容易就能够知道答案，如果你没有猜中答案，那么我这篇文章就值得你点一个赞了，因为接下来我分享的小知识，可能会在笔试中救你一命。</p>
+<p>在对于执行上下文[2]的介绍中，我与大家分享了函数调用栈这种特殊数据结构的调用特性。在这里，将会介绍另外一个特殊的队列结构，页面中所有由setTimeout定义的操作，都将放在同一个队列中依次执行。</p>
+<p>我用下图跟大家展示一下队列数据结构的特点。</p>
+<p><img src="/images/article/settimeout2.png" alt="settimeout2"></p>
+<p>队列：先进先出</p>
+<p>而这个队列执行的时间，需要等待到函数调用栈清空之后才开始执行。即所有可执行代码执行完毕之后，才会开始执行由setTimeout定义的操作。而这些操作进入队列的顺序，则由设定的延迟时间来决定。</p>
+<p>更加详细的执行顺序，将会在事件循环的文中中描述</p>
+<p>因此在上面这个例子中，即使我们将延迟时间设置为0，它定义的操作仍然需要等待所有代码执行完毕之后才开始执行。这里的延迟时间，并非相对于setTimeout执行这一刻，而是相对于其他代码执行完毕这一刻。所以上面的例子执行结果就非常容易理解了。</p>
+<p>为了帮助大家理解，再来一个结合变量提升的更加复杂的例子。如果你能够正确看出执行顺序，那么你对于函数的执行就有了比较正确的认识了，如果还不能，就回过头去看看其他几篇文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function () &#123;</span><br><span class="line">console.log(a);</span><br><span class="line">&#125;, 0);</span><br><span class="line"></span><br><span class="line">var a &#x3D; 10;</span><br><span class="line"></span><br><span class="line">console.log(b);</span><br><span class="line">console.log(fn);</span><br><span class="line"></span><br><span class="line">var b &#x3D; 20;</span><br><span class="line"></span><br><span class="line">function fn() &#123;</span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line">    console.log(&#39;setTImeout 10ms.&#39;);</span><br><span class="line">&#125;, 10);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn.toString &#x3D; function () &#123;</span><br><span class="line">return 30;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(fn);</span><br><span class="line"></span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line">console.log(&#39;setTimeout 20ms.&#39;);</span><br><span class="line">&#125;, 20);</span><br><span class="line"></span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
+<p>执行结果如图所示。</p>
+<p><img src="/images/article/settimeout3.png" alt="settimeout3"></p>
+<p>OK，关于setTimeout就暂时先介绍到这里，我们回过头来看看那个循环闭包的思考题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 1; i &lt;&#x3D; 5; i++) &#123;</span><br><span class="line">setTimeout(function timer() &#123;</span><br><span class="line">    console.log(i);</span><br><span class="line">&#125;, i * 1000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们直接这样写，根据setTimeout定义的操作在函数调用栈清空之后才会执行的特点，for循环里定义了5个setTimeout操作。而当这些操作开始执行时，for循环的i值，已经先一步变成了6。因此输出结果总为6。而我们想要让输出结果依次执行，我们就必须借助闭包的特性，每次循环时，将i值保存在一个闭包中，当setTimeout中定义的操作执行时，则访问对应闭包保存的i值即可。</p>
+<p>而我们知道在函数中闭包判定的准则，即执行时是否在内部定义的函数中访问了上层作用域的变量。我们需要包裹一层自执行函数为闭包的形成提供条件。</p>
+<p>因此，我们只需要2个操作就可以完成题目需求，一是使用自执行函数提供闭包条件，二是传入i值并保存在闭包中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 1; i &lt;&#x3D; 5; i++) &#123;</span><br><span class="line">(function (i) &#123;</span><br><span class="line">    setTimeout(function timer() &#123;</span><br><span class="line">    console.log(i);</span><br><span class="line">    &#125;, i * 1000);</span><br><span class="line">&#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/article/settimeout4.png" alt="settimeout4"></p>
+<p>利用断点调试，在chrome中查看执行顺序与每一个闭包中不同的i值</p>
+<p>当然，也可以在setTimeout的第一个参数处利用闭包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 1; i &lt;&#x3D; 5; i++) &#123;</span><br><span class="line">setTimeout((function (i) &#123;</span><br><span class="line">    return function () &#123;</span><br><span class="line">    console.log(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(i), i * 1000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <br />
+            <p class="meta">
+                
+            </p>
+        </div>
+
+        <div class="col-sm-3">
+             
+<span><b> TL;DR</b></span>
+<p>
+	Yet another hexo theme.
+</p>
+<hr />
+
+
+<span><b> TL;DR 2</b></span>
+<p>
+	No, not another one :/
+</p>
+<hr />
+
+ 
+
+<span
+	><a href="https://twitter.com/hexojs" target="_blank" rel="noopener"
+		><b
+			><i class="fab fa-twitter-square"></i>
+			<i class="fas fa-at"></i>
+			hexojs</b
+		></a
+	></span
+>
+<br />
+<a class="twitter-timeline" data-height="800" data-dnt="true" data-chrome="nofooter transparent noheader noborders " target="_blank" rel="noopener" href="https://twitter.com/hexojs?ref_src=twsrc%5Etfw"></a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+        </div>
+    </div>
+</div>
+<!-- Menu fade on scroll -->
+<script>
+    var isScrolling;
+    var prevScrollpos = window.pageYOffset;
+    window.addEventListener(
+        'scroll',
+        function(event) {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    $('#navbar').slideDown();
+                } else {
+                    $('#navbar').slideUp();
+                }
+                prevScrollpos = currentScrollPos;
+            }, 66);
+        },
+        false
+    );
+</script>
+
+
+<a class="float-left gradient btn paginationbtn" href="/2023/07/13/Array&Object/"><i class="fas fa-chevron-left"></i></a>
+
+
+<a class="float-right gradient btn paginationbtn" href="/2023/07/13/css/"><i class="fas fa-chevron-right"></i></a>
+
+    </main>
+    <!-- Footer -->
+    <footer class="page-footer">
+  <div class="container">
+    <div class="social-icons">
+      
+      <a href="https://hexo.io/" title="Hexo.io" target="_blank" rel="noopener" class="fas fa-home"></a>
+      
+      <a href="https://twitter.com/hexojs" title="@hexojs" target="_blank" rel="noopener" class="fab fa-twitter"></a>
+      
+      <a href="https://github.com/RandomAdversary/Gradient/issues" title="Report issue" target="_blank" rel="noopener" class="fas fa-bug"></a>
+      
+    </div>
+  </div>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+<html>
+<!-- Head tag -->
+<head>
+  <meta charset="UTF-8">
+
+  
+  <title>
+    es6 新特性 |
+    Majesty&#39;s blog
+  </title>
+  
+
+
+  <meta name="description" content="">
+  <meta name="author" content="Alex">
+  <meta property="og:title" content="es6 新特性" />
+  <meta property="og:description" content="" />
+  <meta property='og:site_name' content='Majesty&#39;s blog' />
+  <meta property="og:image" content="http://example.com/img/default.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:title" content="es6 新特性" />
+
+  <meta name="twitter:image" content="http://example.com/img/default.jpg" />
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <!-- Menu -->
+    <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
+  <div class="container">
+    <a class="navbar-brand logo" href="http://example.com">
+      Majesty&#39;s blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item item">
+          
+        <li class="nav-item item">
+          <a class="nav-link" href="/">
+            Home</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" href="/archives">
+            🗂️Archives</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" target="_blank" rel="noopener" href="https://hexo.io/">
+            Hexo</a>
+        </li>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <main class="page main-page">
+        <div class="container blogPost">
+    <div class="row">
+        <div class="col-sm-9 px-md-5">
+            <h2 class="blog-post-title">
+                es6 新特性
+            </h2>
+            <p class="meta">
+                <i class="far fa-clock"></i>
+                2023-07-13 
+            </p>
+            <!-- Content -->
+            <h4 id="一、新的变量声明方式-let-const"><a href="#一、新的变量声明方式-let-const" class="headerlink" title="一、新的变量声明方式 let/const"></a>一、新的变量声明方式 let/const</h4><p>与var不同，新的变量声明方式带来了一些不一样的特性，其中最重要的两个特性就是提供了块级作用域与不再具备变量提升。</p>
+<p>通过2个简单的例子来说明这两点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    let a &#x3D; 20;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a);  &#x2F;&#x2F; a is not defined</span><br></pre></td></tr></table></figure>
+
+<p>而这个简单的例子，会被编译为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    let _a &#x3D; 20;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a);  &#x2F;&#x2F; a is not defined</span><br><span class="line">&#x2F;&#x2F; ES5</span><br><span class="line">console.log(a);   &#x2F;&#x2F; undefined</span><br><span class="line">var a &#x3D; 20;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ES6</span><br><span class="line">console.log(a); &#x2F;&#x2F; a is not defined</span><br><span class="line">let a &#x3D; 20;</span><br></pre></td></tr></table></figure>
+
+<p>当然，你的代码编译成为了ES5之后，仍然会存在变量提升，这一点只需要我们记住即可。在实际使用中，也需要尽量避免使用变量提升的特性带来的负面影响。只有在面试题中，才会对变量提升不停的滥用。</p>
+<p>使用ES6，我们需要全面使用let/const替换var，那么什么时候用let，什么时候用const就成为了一个大家要熟练区分的一个知识点。</p>
+<p>我们常常使用let来声明一个值会被改变的变量，而使用const来声明一个值不会被改变的变量，也可以称之为常量。</p>
+<p>当值为基础数据类型时，那么这里的值，就是指值本身。而当值对应的为引用数据类型时，那么我这里说的值，则表示指向该对象的引用。这里需要注意，正因为该值为一个引用，只需要保证引用不变就可以，我们仍然可以改变该引用所指向的对象。</p>
+<p>当我们试图改变const声明的变量时，则会报错。</p>
+<p>写几个例子，大家可以仔细揣摩一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; null;</span><br><span class="line">a &#x3D; 20;</span><br><span class="line">const obDev &#x3D; &#123;</span><br><span class="line">    a: 20,</span><br><span class="line">    b: 30</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obDev.a &#x3D; 30;</span><br><span class="line"></span><br><span class="line">console.log(obDev); &#x2F;&#x2F; Object &#123;a: 30, b: 30&#125;</span><br><span class="line">const fn &#x3D; function() &#123;&#125;</span><br><span class="line">const a &#x3D; obDev.a;</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+
+<p>只要抓住上面我说的特性，那么在使用let/const时就会显得游刃有余。根据我自己的经验，使用const的场景要比使用let的场景多很多。</p>
+<h4 id="二、-箭头函数的使用"><a href="#二、-箭头函数的使用" class="headerlink" title="二、 箭头函数的使用"></a>二、 箭头函数的使用</h4><p>之前我说ES6颠覆了js的编码习惯，箭头函数的使用占了很大一部分。</p>
+<p>首先是写法上的不同:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var fn &#x3D; function(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es6 箭头函数写法，当函数直接被return时，可以省略函数体的括号</span><br><span class="line">const fn &#x3D; (a, b) &#x3D;&gt; a + b;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var foo &#x3D; function() &#123;</span><br><span class="line">    var a &#x3D; 20；</span><br><span class="line">    var b &#x3D; 30;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">const foo &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">   const a &#x3D; 20;</span><br><span class="line">   const b &#x3D; 30;</span><br><span class="line">   return a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数可以替换函数表达式，但是不能替换函数声明</p>
+<p>其次还有一个至关重要的一点，那就是箭头函数中，没有this。如果你在箭头函数中使用了this，那么该this一定就是外层的this。</p>
+<p>也正是因为箭头函数中没有this，因此我们也就无从谈起用call/apply/bind来改变this指向。记住这个特性，能让你在react组件之间传值时少走无数弯路。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name: &#39;tom&#39;,</span><br><span class="line">    getName: function() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 我们试图用ES6的写法来重构上面的对象</span><br><span class="line">const person &#x3D; &#123;</span><br><span class="line">    name: &#39;tom&#39;,</span><br><span class="line">    getName: () &#x3D;&gt; this.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 但是编译结果却是</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name: &#39;tom&#39;,</span><br><span class="line">    getName: function getName() &#123;</span><br><span class="line">        return undefined.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在ES6中，会默认采用严格模式，因此this也不会自动指向window对象了，而箭头函数本身并没有this，因此this就只能是undefined，这一点，在使用的时候，一定要慎重慎重再慎重，不然踩了坑你都不知道自己错在哪！这种情况，如果你还想用this，就不要用使用箭头函数的写法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 可以稍做改动</span><br><span class="line">const person &#x3D; &#123;</span><br><span class="line">    name: &#39;tom&#39;,</span><br><span class="line">    getName: function() &#123;</span><br><span class="line">        return setTimeout(() &#x3D;&gt; this.name, 1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 编译之后变成</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name: &#39;tom&#39;,</span><br><span class="line">    getName: function getName() &#123;</span><br><span class="line">        var _this &#x3D; this;  &#x2F;&#x2F; 使用了我们在es5时常用的方式保存this引用</span><br><span class="line"></span><br><span class="line">        return setTimeout(function () &#123;</span><br><span class="line">            return _this.name;</span><br><span class="line">        &#125;, 1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>先记住箭头函数的写法，并留意箭头函数中关于this的特殊性，更过实践与注意事项我们在封装react组件时再慢慢来感受。</p>
+<p>除此之外，箭头函数中无法访问arguments对象。</p>
+<h4 id="三、模板字符串"><a href="#三、模板字符串" class="headerlink" title="三、模板字符串"></a>三、模板字符串</h4><p>模板字符串是为了解决使用+号拼接字符串的不便利而出现的。它的功能非常强大，但是我们大多数时候使用它则非常简单。看一个例子大家就明白怎么使用了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">const a &#x3D; 20;</span><br><span class="line">const b &#x3D; 30;</span><br><span class="line">const string &#x3D; &#96;$&#123;a&#125;+$&#123;b&#125;&#x3D;$&#123;a+b&#125;&#96;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var a &#x3D; 20;</span><br><span class="line">var b &#x3D; 30;</span><br><span class="line">var string &#x3D; a + &quot;+&quot; + b + &quot;&#x3D;&quot; + (a + b);</span><br></pre></td></tr></table></figure>
+
+<p>使用 `` 将整个字符串包裹起来，而在其中使用 ${} 来包裹一个变量或者一个表达式。</p>
+<p>当然模板字符串还支持换行等强大的功能，更多的大家可通过参考资料进一步学习。</p>
+<h4 id="四、-解析结构"><a href="#四、-解析结构" class="headerlink" title="四、 解析结构"></a>四、 解析结构</h4><p>解析结构是一种全新的写法，我们只需要使用一个例子，大家就能够明白解析结构到底是怎么一回事儿。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 首先有这么一个对象</span><br><span class="line">const props &#x3D; &#123;</span><br><span class="line">    className: &#39;tiger-button&#39;,</span><br><span class="line">    loading: false,</span><br><span class="line">    clicked: true,</span><br><span class="line">    disabled: &#39;disabled&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们想要取得其中的2个值：loading与clicked时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var loading &#x3D; props.loading;</span><br><span class="line">var clicked &#x3D; props.clicked;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">const &#123; loading, clicked &#125; &#x3D; props;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 给一个默认值，当props对象中找不到loading时，loading就等于该默认值</span><br><span class="line">const &#123; loading &#x3D; false, clicked &#125; &#x3D; props;</span><br></pre></td></tr></table></figure>
+
+<p>是不是简单了许多？正是由于解析结构大大减少了代码量，因此它大受欢迎，在很多代码中它的影子随处可见。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 比如</span><br><span class="line">&#x2F;&#x2F; section1</span><br><span class="line">import React, &#123; Component &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; section2</span><br><span class="line">export &#123; default &#125; from &#39;.&#x2F;Button&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; section3</span><br><span class="line">const &#123; click, loading &#125; &#x3D; this.props;</span><br><span class="line">const &#123; isCheck &#125; &#x3D; this.state;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; more  任何获取对象属性值的场景都可以使用解析结构来减少我们的代码量</span><br></pre></td></tr></table></figure>
+
+<p>另外，数组也有属于自己的解析结构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">const arr &#x3D; [1, 2, 3];</span><br><span class="line">const [a, b, c] &#x3D; arr;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var arr &#x3D; [1, 2, 3];</span><br><span class="line">var a &#x3D; arr[0];</span><br><span class="line">var b &#x3D; arr[1];</span><br><span class="line">var c &#x3D; arr[2];</span><br></pre></td></tr></table></figure>
+
+<p>数组以序列号一一对应，这是一个有序的对应关系。而对象根据属性名一一对应，这是一个无序的对应关系。根据这个特性，使用解析结构从对象中获取属性值更加具有可用性。</p>
+<h4 id="五、-函数默认参数"><a href="#五、-函数默认参数" class="headerlink" title="五、 函数默认参数"></a>五、 函数默认参数</h4><p>之前我们不能直接为函数指定默认参数，因此很多时候为了保证传入的参数具备一个默认值，我们常常使用如下的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function add(x, y) &#123;</span><br><span class="line">    var x &#x3D; x || 20;</span><br><span class="line">    var y &#x3D; y || 30;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add()); &#x2F;&#x2F; 50</span><br></pre></td></tr></table></figure>
+
+<p>这种方式并不是没有缺点，比如当我传入一个x值为false，这个时候任然会取到默认值，就不是我们的本意了。</p>
+<p>来看看ES6的默认值写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function add(x &#x3D; 20, y &#x3D; 30) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;</span><br><span class="line">console.log(add());</span><br></pre></td></tr></table></figure>
+
+<p>在实际开发中给参数添加适当的默认值，可以让我们对函数的参数类型有一个直观的认知。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const ButtonGroupProps &#x3D; &#123;</span><br><span class="line">    size: &#39;normal&#39;,</span><br><span class="line">    className: &#39;xxxx-button-group&#39;,</span><br><span class="line">    borderColor: &#39;#333&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default function ButtonGroup(props &#x3D; ButtonGroupProps) &#123;</span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="六、-展开运算符"><a href="#六、-展开运算符" class="headerlink" title="六、 展开运算符"></a>六、 展开运算符</h4><p>在ES6中用…来表示展开运算符，它可以将数组方法或者对象进行展开。先来看一个例子它是如何使用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const arr1 &#x3D; [1, 2, 3];</span><br><span class="line">const arr2 &#x3D; [...arr1, 10, 20, 30];</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 这样，arr2 就变成了[1, 2, 3, 10, 20, 30];</span><br></pre></td></tr></table></figure>
+
+<p>当然，展开对象数据也是可以得到类似的结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const obj1 &#x3D; &#123;</span><br><span class="line">  a: 1,</span><br><span class="line">  b: 2,</span><br><span class="line">  c: 3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const obj2 &#x3D; &#123;</span><br><span class="line">  ...obj1,</span><br><span class="line">  d: 4,</span><br><span class="line">  e: 5,</span><br><span class="line">  f: 6</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 结果类似于 const obj2 &#x3D; Object.assign(&#123;&#125;, obj1, &#123;d: 4&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>展开运算符还常常运用在解析结构之中，例如我们在Raect封装组件的时候常常不确定props到底还有多少数据会传进来，就会利用展开运算符来处理剩余的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 这种方式在react中十分常用</span><br><span class="line">const props &#x3D; &#123;</span><br><span class="line">  size: 1,</span><br><span class="line">  src: &#39;xxxx&#39;,</span><br><span class="line">  mode: &#39;si&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const &#123; size, ...others &#125; &#x3D; props;</span><br><span class="line"></span><br><span class="line">console.log(others)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 然后再利用暂开运算符传递给下一个元素，再以后封装react组件时会大量使用到这种方式，正在学习react的同学一定要搞懂这种使用方式</span><br></pre></td></tr></table></figure>
+
+<p>&lt;button {…others} size={size} /&gt;</p>
+<p>展开运算符还用在函数的参数中，来表示函数的不定参。只有放在最后才能作为函数的不定参，否则会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 所有参数之和</span><br><span class="line">const add &#x3D; (a, b, ...more) &#x3D;&gt; &#123;</span><br><span class="line">    return more.reduce((m, n) &#x3D;&gt; m + n) + a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 23, 1, 2, 3, 4, 5)) &#x2F;&#x2F; 39</span><br></pre></td></tr></table></figure>
+
+<p>展开运算符的运用可以大大提高我们的代码效率，但是在刚开始使用的时候比较绕脑，掌握好了用起来还是非常爽的，记住这些使用场景，平时在用的时候可以刻意多运用就行了。</p>
+<h4 id="七、对象字面量-与-class"><a href="#七、对象字面量-与-class" class="headerlink" title="七、对象字面量 与 class"></a>七、对象字面量 与 class</h4><p>ES6针对对象字面量做了许多简化语法的处理。</p>
+<p>•当属性与值的变量同名时。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const name &#x3D; &#39;Jane&#39;;</span><br><span class="line">const age &#x3D; 20</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">const person &#x3D; &#123;</span><br><span class="line">  name,</span><br><span class="line">  age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">  name: name,</span><br><span class="line">  age: age</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>那么这种方式在任何地方都可以使用，比如在一个模块对外提供接口时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const getName &#x3D; () &#x3D;&gt; person.name;</span><br><span class="line">const getAge &#x3D; () &#x3D;&gt; person.age;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; commonJS的方式</span><br><span class="line">module.exports &#x3D; &#123; getName, getAge &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ES6 modules的方式</span><br><span class="line">export default &#123; getName, getAge  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>•除了属性之外，对象字面量写法中的方法也可以有简写方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">const person &#x3D; &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  getName() &#123; &#x2F;&#x2F; 只要不使用箭头函数，this就还是我们熟悉的this</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">  name: name,</span><br><span class="line">  age: age,</span><br><span class="line">  getName: function getName() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>•在对象字面量中可以使用中括号作为属性，表示属性名也能是一个变量了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const name &#x3D; &#39;Jane&#39;;</span><br><span class="line">const age &#x3D; 20</span><br><span class="line"></span><br><span class="line">const person &#x3D; &#123;</span><br><span class="line">  [name]: true,</span><br><span class="line">  [age]: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ant-design的源码实现中，就大量使用了这种方式来拼接当前元素的className，例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let alertCls &#x3D; classNames(prefixCls, &#123;</span><br><span class="line">      [&#96;$&#123;prefixCls&#125;-$&#123;type&#125;&#96;]: true,</span><br><span class="line">      [&#96;$&#123;prefixCls&#125;-close&#96;]: !this.state.closing,</span><br><span class="line">      [&#96;$&#123;prefixCls&#125;-with-description&#96;]: !!description,</span><br><span class="line">      [&#96;$&#123;prefixCls&#125;-no-icon&#96;]: !showIcon,</span><br><span class="line">      [&#96;$&#123;prefixCls&#125;-banner&#96;]: !!banner,</span><br><span class="line"> &#125;, className);</span><br></pre></td></tr></table></figure>
+
+<p>ant-design是一个认可度非常高的UI组件库，官方使用react的方式进行了实现，除此之外，还有vue也有对应的实现，有兴趣的同学可以去他们的官网了解学习。<a target="_blank" rel="noopener" href="https://ant.design/index-cn">https://ant.design/index-cn</a></p>
+<p>•class</p>
+<p>ES6为我们创建对象提供了新的语法糖，这就是Class语法。如果你对ES5中面向对象的方式比较熟悉的话，Class掌握起来也是非常迅速的，因为除了写法的不同，它并不会增加新的难以理解的知识点。我们先利用一个简单的例子来看看写法的不同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ES5</span><br><span class="line">&#x2F;&#x2F; 构造函数</span><br><span class="line">function Person(name, age) &#123;</span><br><span class="line">  this.name &#x3D; name;</span><br><span class="line">  this.age &#x3D; age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 原型方法</span><br><span class="line">Person.prototype.getName &#x3D; function() &#123;</span><br><span class="line">  return this.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ES6</span><br><span class="line">class Person &#123;</span><br><span class="line">  constructor(name, age) &#123;  &#x2F;&#x2F; 构造函数</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getName() &#123;  &#x2F;&#x2F; 原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>babel会将ES6的写法编译成为利用Object.defineProperty实现的方式，这个方法的具体用处大家可以在《JavaScript高级编程3》中学习了解，包括get，set，等都有详细的说明</p>
+<p>除此之外，我们还需要特别注意在实际使用中的几种写法方式的不同，在下面的例子注释中，我说明了他们分别对应的ES5中的含义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  constructor(name, age) &#123;  &#x2F;&#x2F; 构造函数</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getName() &#123;   &#x2F;&#x2F; 这种写法表示将方法添加到原型中</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static a &#x3D; 20;  &#x2F;&#x2F; 等同于 Person.a &#x3D; 20</span><br><span class="line"></span><br><span class="line">  c &#x3D; 20;   &#x2F;&#x2F; 表示在构造函数中添加属性 在构造函数中等同于 this.c &#x3D; 20</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 箭头函数的写法表示在构造函数中添加方法，在构造函数中等同于this.getAge &#x3D; function() &#123;&#125;</span><br><span class="line">  getAge &#x3D; () &#x3D;&gt; this.age   </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数需要注意的仍然是this的指向问题，因为箭头函数this指向不能被改变的特性，因此在react组件中常常利用这个特性来在不同的组件进行传值会更加方便。</p>
+<p>•继承 extends</p>
+<p>相比ES5，ES6的继承就要简单很多，我们直接来看一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  constructor(name, age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getName() &#123;</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Student类继承Person类</span><br><span class="line">class Student extends Person &#123;</span><br><span class="line">  constructor(name, age, gender, classes) &#123;</span><br><span class="line">    super(name, age);</span><br><span class="line">    this.gender &#x3D; gender;</span><br><span class="line">    this.classes &#x3D; classes;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getGender() &#123;</span><br><span class="line">    return this.gender;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们只需要一个extends关键字，就可以实现继承了，不用像ES5那样去担心构造函数继承和原型继承，除此之外，我们还需要关注一个叫做super的方法。</p>
+<p>在继承的构造函数中，我们必须如上面的例子那么调用一次super方法，它表示构造函数的继承，与ES5中利用call/apply继承构造函数是一样的功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 构造函数中</span><br><span class="line">&#x2F;&#x2F; es6</span><br><span class="line">super(name, age);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; es5</span><br><span class="line">Person.call(this);</span><br></pre></td></tr></table></figure>
+
+<p>super还可以直接调用父级的原型方法，super.getName，但是我自己从来没这样用过，也就不扩展说了。</p>
+<p>继承在react中有大量的使用场景，许多组件都利用继承来创建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line"></span><br><span class="line">  defaultProps &#x3D; &#123;&#125;</span><br><span class="line">  state &#x3D; &#123;&#125;</span><br><span class="line">  componentWillMount() &#123;&#125;</span><br><span class="line">  componentDidMount() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  btnClick &#x3D; e &#x3D;&gt; &#123;&#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只要根据我们上面所学到的知识，明确的知道哪些属性方法是放在构造函数中，哪些属性方法是放到了原型中，那么我们自己在编写react组件的时候就要简单和清晰很多。</p>
+
+            <br />
+            <p class="meta">
+                
+            </p>
+        </div>
+
+        <div class="col-sm-3">
+             
+<span><b> TL;DR</b></span>
+<p>
+	Yet another hexo theme.
+</p>
+<hr />
+
+
+<span><b> TL;DR 2</b></span>
+<p>
+	No, not another one :/
+</p>
+<hr />
+
+ 
+
+<span
+	><a href="https://twitter.com/hexojs" target="_blank" rel="noopener"
+		><b
+			><i class="fab fa-twitter-square"></i>
+			<i class="fas fa-at"></i>
+			hexojs</b
+		></a
+	></span
+>
+<br />
+<a class="twitter-timeline" data-height="800" data-dnt="true" data-chrome="nofooter transparent noheader noborders " target="_blank" rel="noopener" href="https://twitter.com/hexojs?ref_src=twsrc%5Etfw"></a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+        </div>
+    </div>
+</div>
+<!-- Menu fade on scroll -->
+<script>
+    var isScrolling;
+    var prevScrollpos = window.pageYOffset;
+    window.addEventListener(
+        'scroll',
+        function(event) {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    $('#navbar').slideDown();
+                } else {
+                    $('#navbar').slideUp();
+                }
+                prevScrollpos = currentScrollPos;
+            }, 66);
+        },
+        false
+    );
+</script>
+
+
+<a class="float-left gradient btn paginationbtn" href="/2023/07/13/eventloop/"><i class="fas fa-chevron-left"></i></a>
+
+
+<a class="float-right gradient btn paginationbtn" href="/2023/07/13/curry/"><i class="fas fa-chevron-right"></i></a>
+
+    </main>
+    <!-- Footer -->
+    <footer class="page-footer">
+  <div class="container">
+    <div class="social-icons">
+      
+      <a href="https://hexo.io/" title="Hexo.io" target="_blank" rel="noopener" class="fas fa-home"></a>
+      
+      <a href="https://twitter.com/hexojs" title="@hexojs" target="_blank" rel="noopener" class="fab fa-twitter"></a>
+      
+      <a href="https://github.com/RandomAdversary/Gradient/issues" title="Report issue" target="_blank" rel="noopener" class="fas fa-bug"></a>
+      
+    </div>
+  </div>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
