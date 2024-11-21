@@ -1,0 +1,344 @@
+<html>
+<!-- Head tag -->
+<head>
+  <meta charset="UTF-8">
+
+  
+  <title>
+    Websocket |
+    Majesty&#39;s blog
+  </title>
+  
+
+
+  <meta name="description" content="">
+  <meta name="author" content="Alex">
+  <meta property="og:title" content="Websocket" />
+  <meta property="og:description" content="" />
+  <meta property='og:site_name' content='Majesty&#39;s blog' />
+  <meta property="og:image" content="http://example.com/img/default.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:title" content="Websocket" />
+
+  <meta name="twitter:image" content="http://example.com/img/default.jpg" />
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <!-- Menu -->
+    <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
+  <div class="container">
+    <a class="navbar-brand logo" href="http://example.com">
+      Majesty&#39;s blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item item">
+          
+        <li class="nav-item item">
+          <a class="nav-link" href="/">
+            Home</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" href="/archives">
+            🗂️Archives</a>
+        </li>
+        
+        <li class="nav-item item">
+          <a class="nav-link" target="_blank" rel="noopener" href="https://hexo.io/">
+            Hexo</a>
+        </li>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <main class="page main-page">
+        <div class="container blogPost">
+    <div class="row">
+        <div class="col-sm-9 px-md-5">
+            <h2 class="blog-post-title">
+                Websocket
+            </h2>
+            <p class="meta">
+                <i class="far fa-clock"></i>
+                2024-11-21 
+            </p>
+            <!-- Content -->
+            <h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><h5 id="协议概述："><a href="#协议概述：" class="headerlink" title="协议概述："></a>协议概述：</h5><pre><code>WebSocket 是一种标准化协议，RFC 6455 定义。
+与 HTTP 一样，基于 TCP 连接，但不同于 HTTP 的请求-响应模型。
+支持客户端和服务端实时双向通信。</code></pre>
+<h5 id="工作流程："><a href="#工作流程：" class="headerlink" title="工作流程："></a>工作流程：</h5><pre><code>1.握手阶段：WebSocket 使用 HTTP/1.1 协议进行握手，连接成功后升级为 WebSocket 协议。
+
+2.客户端发送 HTTP 请求头中的 Upgrade: websocket 和 Connection: Upgrade。
+
+3.数据传输阶段：握手成功后，客户端和服务端使用 WebSocket 协议进行数据帧传输。</code></pre>
+<hr>
+<h4 id="WebSocket-数据帧"><a href="#WebSocket-数据帧" class="headerlink" title="WebSocket 数据帧"></a>WebSocket 数据帧</h4><h5 id="WebSocket-数据传输单位是帧："><a href="#WebSocket-数据传输单位是帧：" class="headerlink" title="WebSocket 数据传输单位是帧："></a>WebSocket 数据传输单位是帧：</h5><pre><code>控制帧：如连接关闭、Ping/Pong。
+数据帧：可传输文本或二进制数据。</code></pre>
+<h5 id="数据帧的结构："><a href="#数据帧的结构：" class="headerlink" title="数据帧的结构："></a>数据帧的结构：</h5><pre><code>FIN：标志是否是消息的最后一帧。
+Opcode：帧类型（如文本、二进制、Ping、Pong 等）。
+Mask：客户端到服务端的数据必须使用掩码。
+Payload：负载数据，文本通常是 UTF-8 格式。</code></pre>
+<hr>
+<h4 id="与-HTTP-的关系和区别"><a href="#与-HTTP-的关系和区别" class="headerlink" title="与 HTTP 的关系和区别"></a>与 HTTP 的关系和区别</h4><h5 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h5><pre><code>握手阶段通过 HTTP/1.1 进行。
+都基于 TCP 协议。</code></pre>
+<h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><pre><code>HTTP 是无状态的请求-响应模式，WebSocket 是长连接的全双工通信。
+WebSocket 连接建立后没有 HTTP 请求头的开销，通信效率更高。</code></pre>
+<hr>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><pre><code>实时性：客户端和服务端可随时推送数据，无需轮询。
+节省带宽：与 HTTP 长轮询相比，WebSocket 的头部数据较小，通信更高效。
+低延迟：减少了重复建立连接的时间开销。</code></pre>
+<hr>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><pre><code>实时聊天（如 IM 应用、在线客服）。
+实时通知（如交易提醒、社交媒体提醒）。
+实时数据更新（如股票行情、体育比分）。
+在线游戏。
+实时协作（如多人协作编辑文档）。</code></pre>
+<hr>
+<h4 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h4><h5 id="握手请求（客户端）"><a href="#握手请求（客户端）" class="headerlink" title="握手请求（客户端）"></a>握手请求（客户端）</h5><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: example.com</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ&#x3D;&#x3D;</span><br><span class="line">Sec-WebSocket-Version: 13</span><br><span class="line"></span><br></pre></td></tr></table></figure></code></pre>
+<h5 id="握手响应（服务端）"><a href="#握手响应（服务端）" class="headerlink" title="握手响应（服务端）"></a>握手响应（服务端）</h5><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo&#x3D;</span><br></pre></td></tr></table></figure></code></pre>
+<h5 id="发送和接收消息（客户端-服务端）"><a href="#发送和接收消息（客户端-服务端）" class="headerlink" title="发送和接收消息（客户端/服务端）"></a>发送和接收消息（客户端/服务端）</h5><pre><code>使用二进制或文本帧传输消息。
+服务端可以响应客户端的 Ping 消息（发送 Pong）</code></pre>
+<hr>
+<h4 id="WebSocket-的实现"><a href="#WebSocket-的实现" class="headerlink" title="WebSocket 的实现"></a>WebSocket 的实现</h4><h5 id="浏览器端"><a href="#浏览器端" class="headerlink" title="浏览器端"></a>浏览器端</h5><pre><code><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://example.com/socket&#x27;</span>);</span><br><span class="line">ws.onopen = <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;Connected&#x27;</span>);</span><br><span class="line">ws.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;Message:&#x27;</span>, event.data);</span><br><span class="line">ws.onclose = <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;Disconnected&#x27;</span>);</span><br><span class="line">ws.onerror = <span class="function">(<span class="params">error</span>) =&gt;</span> <span class="built_in">console</span>.error(<span class="string">&#x27;Error:&#x27;</span>, error);</span><br></pre></td></tr></table></figure></code></pre>
+<h5 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h5><pre><code>使用语言框架：
+
+Node.js：ws 库。
+Python：websockets 或 Socket.IO。
+Java：Spring WebSocket</code></pre>
+<hr>
+<h4 id="WebSocket-与安全"><a href="#WebSocket-与安全" class="headerlink" title="WebSocket 与安全"></a>WebSocket 与安全</h4><h5 id="WSS（WebSocket-Secure）"><a href="#WSS（WebSocket-Secure）" class="headerlink" title="WSS（WebSocket Secure）"></a>WSS（WebSocket Secure）</h5><pre><code>使用 TLS 加密的 WebSocket，类似 HTTPS。
+URL 以 wss:// 开头。</code></pre>
+<h5 id="防范风险"><a href="#防范风险" class="headerlink" title="防范风险"></a>防范风险</h5><pre><code>跨站脚本攻击 (XSS)：验证数据来源。
+跨站 WebSocket 劫持：通过 Origin 或 Token 验证客户端。</code></pre>
+<hr>
+<h4 id="WebSocket-与其他技术的比较"><a href="#WebSocket-与其他技术的比较" class="headerlink" title="WebSocket 与其他技术的比较"></a>WebSocket 与其他技术的比较</h4><p>HTTP长轮询                   半双工     数据更新频率低      简单实现<br>WebSocket                    全双工        实时性要求高        高效、低延迟<br>Server-Sent Events (SSE)    单向推送    服务端频繁推送数据    简单实现，基于 HTTP</p>
+<hr>
+<h4 id="WebSocket-的扩展"><a href="#WebSocket-的扩展" class="headerlink" title="WebSocket 的扩展"></a>WebSocket 的扩展</h4><h5 id="子协议（Subprotocols）"><a href="#子协议（Subprotocols）" class="headerlink" title="子协议（Subprotocols）"></a>子协议（Subprotocols）</h5><pre><code>应用层协议在 WebSocket 之上定义，例如 STOMP、MQTT。
+握手时可通过 Sec-WebSocket-Protocol 指定。</code></pre>
+<h5 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h5><pre><code>WebSocket 长连接需要 Sticky Session（会话粘滞）。
+通过 Nginx 等代理服务器支持。</code></pre>
+<h5 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h5><pre><code>心跳检测（Ping/Pong）。
+断线重连策略。</code></pre>
+<h5 id="消息序列化"><a href="#消息序列化" class="headerlink" title="消息序列化"></a>消息序列化</h5><pre><code>JSON、Protobuf、MessagePack 等。</code></pre>
+<h4 id="调试与监控"><a href="#调试与监控" class="headerlink" title="调试与监控"></a>调试与监控</h4><pre><code>使用浏览器开发者工具检查 WebSocket 消息。
+使用工具如 Wireshark 或 Fiddler 监控数据帧。</code></pre>
+<hr>
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><h5 id="客户端无法与服务端成功建立-WebSocket-连接，可能报错-WebSocket-connection-failed-或-Error-during-WebSocket-handshake"><a href="#客户端无法与服务端成功建立-WebSocket-连接，可能报错-WebSocket-connection-failed-或-Error-during-WebSocket-handshake" class="headerlink" title="客户端无法与服务端成功建立 WebSocket 连接，可能报错 WebSocket connection failed 或 Error during WebSocket handshake"></a>客户端无法与服务端成功建立 WebSocket 连接，可能报错 WebSocket connection failed 或 Error during WebSocket handshake</h5><pre><code>1.原因：
+
+1&gt;服务端未正确配置 WebSocket 协议支持。
+2&gt;防火墙或代理服务器阻止了 WebSocket 协议。
+3&gt;客户端和服务端的 URL 或端口配置错误。
+
+2.解决方法：
+
+1&gt;检查服务端代码：确保服务端监听了正确的 WebSocket 请求路径。
+2&gt;确认 URL 和端口：检查客户端使用的 ws:// 或 wss:// 是否正确。
+3&gt;代理或防火墙配置：
+    配置代理服务器（如 Nginx）以支持 WebSocket 协议:
+
+    <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /ws/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://localhost:8080;</span><br><span class="line">    <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+4&gt;调试握手过程：使用浏览器开发者工具查看 WebSocket 握手请求和响应。</code></pre>
+<h5 id="WebSocket-连接意外断开，可能报错-WebSocket-is-closed-with-code-1006"><a href="#WebSocket-连接意外断开，可能报错-WebSocket-is-closed-with-code-1006" class="headerlink" title="WebSocket 连接意外断开，可能报错 WebSocket is closed with code 1006"></a>WebSocket 连接意外断开，可能报错 WebSocket is closed with code 1006</h5><pre><code>1.原因：
+
+1&gt;网络不稳定或超时。
+2&gt;服务器因资源限制主动断开连接。
+3&gt;客户端或服务器缺少心跳检测机制。
+
+2.解决方法：
+
+1&gt;实现心跳检测：
+    客户端定期发送 Ping 帧，服务端返回 Pong 帧。
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://example.com/socket&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> heartbeatInterval;</span><br><span class="line"></span><br><span class="line">ws.onopen = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    heartbeatInterval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        ws.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="attr">type</span>: <span class="string">&#x27;ping&#x27;</span> &#125;));</span><br><span class="line">    &#125;, <span class="number">30000</span>); <span class="comment">// 每 30 秒发送一次心跳</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onclose = <span class="function">() =&gt;</span> <span class="built_in">clearInterval</span>(heartbeatInterval);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+2&gt;断线重连机制
+    当连接断开时尝试重新连接
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://example.com/socket&#x27;</span>);</span><br><span class="line">    ws.onclose = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Disconnected. Reconnecting...&#x27;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(connect, <span class="number">5000</span>); <span class="comment">// 5 秒后重连</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line">connect();</span><br></pre></td></tr></table></figure>
+
+3&gt;优化服务端连接管理
+    确保服务端没有因超出连接数限制而断开连接。
+    使用负载均衡分散连接负担。</code></pre>
+<h5 id="客户端或服务端未收到预期的消息"><a href="#客户端或服务端未收到预期的消息" class="headerlink" title="客户端或服务端未收到预期的消息"></a>客户端或服务端未收到预期的消息</h5><pre><code>1.原因：
+
+1&gt;连接断开时消息未发送或丢失。
+2&gt;消息顺序错乱或未处理。
+
+2.解决方法：
+
+1&gt;确认消息可靠性：在消息中加入序列号或唯一标识，服务端确认处理成功后再继续。
+
+    客户端示例
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> messageCounter = <span class="number">0</span>; <span class="comment">// 序列号</span></span><br><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://example.com/socket&#x27;</span>);</span><br><span class="line"></span><br><span class="line">ws.onopen = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> message = &#123; <span class="attr">id</span>: ++messageCounter, <span class="attr">content</span>: <span class="string">&#x27;Hello, Server!&#x27;</span> &#125;;</span><br><span class="line">    ws.send(<span class="built_in">JSON</span>.stringify(message));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(event.data);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Received:&#x27;</span>, data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    服务端示例 (Node.js)
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> WebSocket = <span class="built_in">require</span>(<span class="string">&#x27;ws&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123; <span class="attr">port</span>: <span class="number">8080</span> &#125;);</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">&#x27;connection&#x27;</span>, <span class="function">(<span class="params">ws</span>) =&gt;</span> &#123;</span><br><span class="line">    ws.on(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">message</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(message);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Received message with ID:&#x27;</span>, data.id);</span><br><span class="line">        ws.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="attr">id</span>: data.id, <span class="attr">status</span>: <span class="string">&#x27;received&#x27;</span> &#125;));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+2&gt;补偿机制：当检测到消息丢失时，重新发送丢失的消息。
+
+    客户端示例
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> messageQueue = [];</span><br><span class="line"><span class="keyword">let</span> messageCounter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://example.com/socket&#x27;</span>);</span><br><span class="line"></span><br><span class="line">ws.onopen = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    sendWithRetry(&#123; <span class="attr">content</span>: <span class="string">&#x27;Hello, Server!&#x27;</span> &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(event.data);</span><br><span class="line">    <span class="keyword">if</span> (data.status === <span class="string">&#x27;received&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 确认消息已接收，从队列中移除</span></span><br><span class="line">        messageQueue = messageQueue.filter(<span class="function">(<span class="params">msg</span>) =&gt;</span> msg.id !== data.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendWithRetry</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> msg = &#123; <span class="attr">id</span>: ++messageCounter, ...message &#125;;</span><br><span class="line">    messageQueue.push(msg);</span><br><span class="line">    ws.send(<span class="built_in">JSON</span>.stringify(msg));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果 3 秒未确认，重新发送</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (messageQueue.find(<span class="function">(<span class="params">msg</span>) =&gt;</span> msg.id === msg.id)) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;Retrying message:&#x27;</span>, msg.id);</span><br><span class="line">            ws.send(<span class="built_in">JSON</span>.stringify(msg));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    服务端处理：防止重复消息
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> processedMessages = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">&#x27;connection&#x27;</span>, <span class="function">(<span class="params">ws</span>) =&gt;</span> &#123;</span><br><span class="line">    ws.on(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">message</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(message);</span><br><span class="line">        <span class="keyword">if</span> (!processedMessages.has(data.id)) &#123;</span><br><span class="line">            processedMessages.add(data.id);</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;Processing message:&#x27;</span>, data);</span><br><span class="line">            ws.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="attr">id</span>: data.id, <span class="attr">status</span>: <span class="string">&#x27;received&#x27;</span> &#125;));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;Duplicate message ignored:&#x27;</span>, data.id);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+3&gt;队列处理：在客户端和服务端实现消息队列，确保消息按序到达并处理。
+
+    服务端示例 (Redis Pub/Sub)
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> WebSocket = <span class="built_in">require</span>(<span class="string">&#x27;ws&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> Redis = <span class="built_in">require</span>(<span class="string">&#x27;ioredis&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pub = <span class="keyword">new</span> Redis();</span><br><span class="line"><span class="keyword">const</span> sub = <span class="keyword">new</span> Redis();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123; <span class="attr">port</span>: <span class="number">8080</span> &#125;);</span><br><span class="line"></span><br><span class="line">sub.subscribe(<span class="string">&#x27;chat&#x27;</span>);</span><br><span class="line">sub.on(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">channel, message</span>) =&gt;</span> &#123;</span><br><span class="line">    wss.clients.forEach(<span class="function">(<span class="params">client</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (client.readyState === WebSocket.OPEN) &#123;</span><br><span class="line">            client.send(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">&#x27;connection&#x27;</span>, <span class="function">(<span class="params">ws</span>) =&gt;</span> &#123;</span><br><span class="line">    ws.on(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">message</span>) =&gt;</span> &#123;</span><br><span class="line">        pub.publish(<span class="string">&#x27;chat&#x27;</span>, message);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    适配断线重连（防止丢失未发送的消息）
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> messageQueue = [];</span><br><span class="line"><span class="keyword">let</span> ws;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://example.com/socket&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    ws.onopen = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Connected&#x27;</span>);</span><br><span class="line">        <span class="comment">// 重发未发送的消息</span></span><br><span class="line">        <span class="keyword">while</span> (messageQueue.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> msg = messageQueue.shift();</span><br><span class="line">            ws.send(<span class="built_in">JSON</span>.stringify(msg));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    ws.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(event.data);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Received:&#x27;</span>, data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    ws.onclose = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Disconnected. Reconnecting...&#x27;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(connect, <span class="number">5000</span>); <span class="comment">// 5 秒后尝试重连</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> msg = &#123; <span class="attr">id</span>: ++messageCounter, ...message &#125;;</span><br><span class="line">    <span class="keyword">if</span> (ws.readyState === WebSocket.OPEN) &#123;</span><br><span class="line">        ws.send(<span class="built_in">JSON</span>.stringify(msg));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果连接未建立，将消息存入队列</span></span><br><span class="line">        messageQueue.push(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">connect();</span><br><span class="line"></span><br></pre></td></tr></table></figure></code></pre>
+<h5 id="数据可能在传输过程中被窃听或篡改"><a href="#数据可能在传输过程中被窃听或篡改" class="headerlink" title="数据可能在传输过程中被窃听或篡改"></a>数据可能在传输过程中被窃听或篡改</h5><pre><code>1.原因：使用未加密的 WebSocket (ws://) 进行通信。
+
+2.解决方法：
+
+1&gt;使用加密连接 (WSS)：配置服务端支持 TLS，并使用 wss://。
+2&gt;验证来源：通过 Origin 头部校验 WebSocket 请求来源。
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Node.js 示例</span></span><br><span class="line"><span class="keyword">const</span> WebSocket = <span class="built_in">require</span>(<span class="string">&#x27;ws&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123; <span class="attr">port</span>: <span class="number">8080</span> &#125;);</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">&#x27;connection&#x27;</span>, <span class="function">(<span class="params">ws, req</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> origin = req.headers.origin;</span><br><span class="line">    <span class="keyword">if</span> (origin !== <span class="string">&#x27;https://example.com&#x27;</span>) &#123;</span><br><span class="line">        ws.close();</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">&#x27;Unauthorized origin:&#x27;</span>, origin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+3&gt;身份验证：在连接握手阶段通过 URL 参数或头部传递 Token 验证身份
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;wss://example.com/socket?token=YOUR_TOKEN&#x27;</span>);</span><br></pre></td></tr></table></figure></code></pre>
+<h5 id="多个客户端连接导致服务器性能下降"><a href="#多个客户端连接导致服务器性能下降" class="headerlink" title="多个客户端连接导致服务器性能下降"></a>多个客户端连接导致服务器性能下降</h5><pre><code>1.原因：
+
+    1&gt;单服务器处理的连接数有限。
+    2&gt;未释放无效或过期的连接。
+
+2.解决方法：
+
+    1&gt;连接管理：定期清理长时间未活动的连接。
+    2&gt;水平扩展：使用负载均衡器（如 Nginx）分发连接。部署多台 WebSocket 服务实例。
+    3&gt;消息广播优化：对需要广播的消息，使用发布/订阅模式或消息中间件（如 Redis Pub/Sub）。</code></pre>
+<h5 id="某些老版本浏览器或特殊环境下不支持-WebSocket"><a href="#某些老版本浏览器或特殊环境下不支持-WebSocket" class="headerlink" title="某些老版本浏览器或特殊环境下不支持 WebSocket"></a>某些老版本浏览器或特殊环境下不支持 WebSocket</h5><pre><code>1.原因：
+
+    WebSocket 是较新的协议，旧设备可能不支持。
+
+2.解决方法：
+
+    1&gt;降级为轮询： 使用 Socket.IO 等库，可以自动降级为 HTTP 长轮询。
+
+    <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">&#x27;socket.io&#x27;</span>)(server);</span><br><span class="line">io.on(<span class="string">&#x27;connection&#x27;</span>, <span class="function">(<span class="params">socket</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Client connected&#x27;</span>);</span><br><span class="line">    socket.on(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">msg</span>) =&gt;</span> <span class="built_in">console</span>.log(msg));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+    2&gt;检测支持情况
+
+        在客户端运行环境中检测 WebSocket 支持
+
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;WebSocket&#x27;</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;WebSocket supported&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;WebSocket not supported&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></code></pre>
+<hr>
+
+            <br />
+            <p class="meta">
+                
+            </p>
+        </div>
+
+        <div class="col-sm-3">
+             
+<span><b> TL;DR</b></span>
+<p>
+	Yet another hexo theme.
+</p>
+<hr />
+
+
+<span><b> TL;DR 2</b></span>
+<p>
+	No, not another one :/
+</p>
+<hr />
+
+ 
+
+<span
+	><a href="https://twitter.com/hexojs" target="_blank" rel="noopener"
+		><b
+			><i class="fab fa-twitter-square"></i>
+			<i class="fas fa-at"></i>
+			hexojs</b
+		></a
+	></span
+>
+<br />
+<a class="twitter-timeline" data-height="800" data-dnt="true" data-chrome="nofooter transparent noheader noborders " target="_blank" rel="noopener" href="https://twitter.com/hexojs?ref_src=twsrc%5Etfw"></a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+        </div>
+    </div>
+</div>
+<!-- Menu fade on scroll -->
+<script>
+    var isScrolling;
+    var prevScrollpos = window.pageYOffset;
+    window.addEventListener(
+        'scroll',
+        function(event) {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    $('#navbar').slideDown();
+                } else {
+                    $('#navbar').slideUp();
+                }
+                prevScrollpos = currentScrollPos;
+            }, 66);
+        },
+        false
+    );
+</script>
+
+
+<a class="float-left gradient btn paginationbtn" href="/2024/11/15/Next.js/"><i class="fas fa-chevron-left"></i></a>
+
+
+    </main>
+    <!-- Footer -->
+    <footer class="page-footer">
+  <div class="container">
+    <div class="social-icons">
+      
+      <a href="https://hexo.io/" title="Hexo.io" target="_blank" rel="noopener" class="fas fa-home"></a>
+      
+      <a href="https://twitter.com/hexojs" title="@hexojs" target="_blank" rel="noopener" class="fab fa-twitter"></a>
+      
+      <a href="https://github.com/RandomAdversary/Gradient/issues" title="Report issue" target="_blank" rel="noopener" class="fas fa-bug"></a>
+      
+    </div>
+  </div>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
