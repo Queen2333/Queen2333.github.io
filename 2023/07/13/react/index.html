@@ -433,6 +433,34 @@ ReactDOM.render: 渲染真实DOM
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> prevState + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <hr>
+<h4 id="为什么-Hooks-只能在函数组件或自定义-Hook-的最外层调用"><a href="#为什么-Hooks-只能在函数组件或自定义-Hook-的最外层调用" class="headerlink" title="为什么 Hooks 只能在函数组件或自定义 Hook 的最外层调用"></a>为什么 Hooks 只能在函数组件或自定义 Hook 的最外层调用</h4><p>React 的设计目标是保证组件行为的一致性，防止因为调用顺序变化引起的状态管理错误。Hooks 的这一规则（称为 Hook 的“规则”或“法则”）确保了 React 内部能正确追踪每个 Hook 的状态。</p>
+<ol>
+<li>Hook 调用顺序的保证</li>
+</ol>
+<p>React 通过记录 Hook 的调用顺序来管理它们的状态。<br>如果 Hook 被放在条件语句或循环中，调用顺序可能会在每次渲染时发生变化，从而导致状态的错乱。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误示例</span></span><br><span class="line"><span class="keyword">if</span> (condition) &#123;</span><br><span class="line">  useState(<span class="number">0</span>); <span class="comment">// 可能这次渲染被调用，下次渲染未调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码可能在某些渲染中跳过 useState 的调用，导致 React 无法正确对应 Hook 与状态，最终抛出错误。</p>
+<ol start="2">
+<li>React 如何管理 Hooks 状态</li>
+</ol>
+<p>React 内部为每个组件维护了一个Hook 调用链表。在每次渲染时，React 根据调用顺序依次分配每个 Hook 的状态。如果 Hook 调用顺序混乱，链表的结构会被破坏，导致状态更新错误。</p>
+<ol start="3">
+<li>一致的渲染逻辑</li>
+</ol>
+<p>为了保持组件行为的一致性，React 规定 Hooks 必须始终按照固定顺序调用，确保：</p>
+<p>每次渲染访问的 Hook 对应的状态相同。<br>不会因为某些条件分支导致状态“丢失”或“错位”。</p>
+<ol start="4">
+<li>解决复杂逻辑的方式</li>
+</ol>
+<p>当需要在条件语句或循环中使用 Hooks 时，可以将这些逻辑抽离到自定义 Hook 中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useConditionalHook</span>(<span class="params">condition</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> state = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> (condition) &#123;</span><br><span class="line">    <span class="comment">// 在这里可以使用任何 Hooks，但要遵守调用规则</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> state;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在组件中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [value] = useConditionalHook(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;value&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>违反规则会发生什么？</li>
+</ol>
+<p>如果尝试在条件分支或循环中调用 Hook，React 会报错：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">React Hook &quot;useXXX&quot; is called conditionally. React Hooks must be called in the exact same order in every component render.</span><br></pre></td></tr></table></figure>
 
             <br />
             <p class="meta">
