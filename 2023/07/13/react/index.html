@@ -426,6 +426,9 @@ ReactDOM.render: 渲染真实DOM
 
 <hr>
 <h5 id="如何在-React-的-useEffect-中使用-async-await？为什么-useEffect-不能直接接受-async-函数，如何解决这一问题？"><a href="#如何在-React-的-useEffect-中使用-async-await？为什么-useEffect-不能直接接受-async-函数，如何解决这一问题？" class="headerlink" title="如何在 React 的 useEffect 中使用 async/await？为什么 useEffect 不能直接接受 async 函数，如何解决这一问题？"></a>如何在 React 的 useEffect 中使用 async/await？为什么 useEffect 不能直接接受 async 函数，如何解决这一问题？</h5><p>useEffect 中不能直接使用 async 函数。应在钩子内定义异步函数并调用</p>
+<p>这是因为 React 的 useEffect 回调函数需要返回一个清理函数（或什么都不返回），而 async 函数返回的是一个 Promise，与 React 对 useEffect 的设计要求不匹配。</p>
+<p>在 React 的设计中，useEffect 回调函数的返回值被用作清理函数。如果返回的是一个函数，React 会在组件卸载或依赖项更新时调用它以清理资源。<br>如果直接传递一个 async 函数作为 useEffect 的回调，async 函数实际上返回的是一个 Promise，而不是清理函数。</p>
+<p>如果 useEffect 支持直接返回 Promise，React 可能无法在异步操作完成之前进行清理。这会导致清理操作的顺序混乱，影响依赖项的更新和资源管理。</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fetchData = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> fetch(<span class="string">&#x27;/api/data&#x27;</span>);</span><br><span class="line">    <span class="comment">// 处理 data</span></span><br><span class="line">  &#125;;</span><br><span class="line">  fetchData();</span><br><span class="line">&#125;, []);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <hr>
