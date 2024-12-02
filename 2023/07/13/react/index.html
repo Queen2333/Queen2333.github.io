@@ -520,6 +520,21 @@ ReactDOM.render: 渲染真实DOM
 
 <p>简化了 Context 数据的使用，去掉了嵌套回调函数的复杂性。<br>只能在函数组件或自定义 Hook 中使用。</p>
 <hr>
+<h4 id="useEffect和useLayoutEffect区别"><a href="#useEffect和useLayoutEffect区别" class="headerlink" title="useEffect和useLayoutEffect区别"></a>useEffect和useLayoutEffect区别</h4><ol>
+<li><p>useEffect</p>
+<p>触发时机：</p>
+<p>在 浏览器完成布局与绘制 后执行（异步）。<br>不会阻塞浏览器的页面渲染。</p>
+<p>适用场景：</p>
+<p>不需要与 DOM 的渲染同步的操作。<br>异步数据请求、事件监听、订阅等。</p>
+</li>
+<li><p>useLayoutEffect</p>
+<p>触发时机：</p>
+<p>在 浏览器完成 DOM 变更（渲染）但尚未绘制到屏幕 时执行（同步）。<br>会阻塞页面的渲染，直到其回调函数执行完毕。</p>
+<p>适用场景：</p>
+<p>需要在浏览器绘制前对 DOM 做同步修改。<br>精确的 DOM 测量（如获取元素尺寸）。<br>修复渲染闪烁问题。</p>
+</li>
+</ol>
+<hr>
 
             <br />
             <p class="meta">
